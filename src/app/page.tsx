@@ -1,12 +1,30 @@
-import Calendar from "@/components/calendar";
-import Row from "@/components/row";
-import Grid from "@/components/row";
+import Column from "@/components/column";
+import { TimeTableEvent } from "../../types";
 
 export default function Home() {
-  const colors = ["#FFC107", "#2196F3", "#4CAF50"];
+  const events: TimeTableEvent[] = [
+    {
+      title: "Meeting",
+      colorHex: "#FFC107",
+      start: "09:00",
+      end: "10:30",
+    },
+    {
+      title: "Write report",
+      colorHex: "#2196F3",
+      start: "10:30",
+      end: "15:30",
+    },
+    {
+      title: "Read book",
+      colorHex: "#4CAF50",
+      start: "20:00",
+      end: "20:30",
+    }
+  ];
   return (
     <>
-      <Row n={3} colors={colors} />
+      <Column n={48} events={events} />
     </>
   );
 }

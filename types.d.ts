@@ -1,5 +1,6 @@
 export type TimeTableEvent = {
   title: string;
-  start: string;
+  colorHex: string;
+  start: string; // 'hh:mm'
   end: string;
 };

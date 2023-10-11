@@ -10,7 +10,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <div className="flex items-center justify-center">
-          <div className="flex items-center justify-center h-1/4 w-1/2">
+          <div className="flex items-center justify-center h-4/5 w-[13%]">
             {children}
           </div>
         </div>  
