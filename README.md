@@ -2,6 +2,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ![alt text](Design-Letters-Weekly-Planner-A4.jpg "Weekly Todo Component")
 
+![alt text](color_scheme.png "Color Scheme")
+
 ## Getting Started
 
 First, run the development server:

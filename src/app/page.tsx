@@ -5,19 +5,19 @@ export default function Home() {
   const events: TimeTableEvent[] = [
     {
       title: "Meeting",
-      colorHex: "#FFC107",
+      colorHex: "#c7e9f1",
       start: "09:00",
       end: "10:30",
     },
     {
       title: "Write report",
-      colorHex: "#2196F3",
+      colorHex: "#e6e6fa",
       start: "10:30",
       end: "15:30",
     },
     {
       title: "Read book",
-      colorHex: "#4CAF50",
+      colorHex: "#c8e6c9",
       start: "20:00",
       end: "20:30",
     }

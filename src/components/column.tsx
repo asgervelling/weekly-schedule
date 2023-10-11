@@ -1,13 +1,14 @@
 import React from 'react';
 import { indexToTimestamp, timestampToIndex } from '@/calendar/time_formats';
 import { TimeTableEvent } from '../../types';
+import Panel from './panel';
 
-interface RowProps {
+type ColumnProps = {
   n: number;
   events: TimeTableEvent[];
-}
+};
 
-const Column: React.FC<RowProps> = ({ n, events }) => {
+const Column: React.FC<ColumnProps> = ({ n, events }) => {
   const containerStyle: React.CSSProperties = {
     display: 'grid',
     gridTemplateRows: `repeat(${n}, 1fr)`,
@@ -16,19 +17,9 @@ const Column: React.FC<RowProps> = ({ n, events }) => {
   };
 
   return (
-    <div style={containerStyle} className='border-2'>
-      {events.map((e, index) => (
-        <div
-          key={index}
-          style={{
-            backgroundColor: e.colorHex,
-            gridRowStart: timestampToIndex(e.start, n),
-            gridRowEnd: timestampToIndex(e.end, n),
-          }}
-          className='w-full h-full'
-        >
-          <p>{e.start}: {e.title}</p>
-        </div>
+    <div style={containerStyle} className='border-2 border-slate-950 text-slate-950'>
+      {events.map((e, i) => (
+        <Panel i={i} n={n} event={e} />
       ))}
     </div>
   );
