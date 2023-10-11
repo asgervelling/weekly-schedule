@@ -10,6 +10,9 @@ type PanelProps = {
 };
 
 
+/**
+ * The i'th row in a Column divided into n sections
+ */
 const Panel: React.FC<PanelProps> = ({ i, n, event }) => {
   return (
     <div
@@ -19,11 +22,21 @@ const Panel: React.FC<PanelProps> = ({ i, n, event }) => {
         gridRowStart: timestampToIndex(event.start, n),
         gridRowEnd: timestampToIndex(event.end, n),
       }}
-      className='w-full h-full'
+      className={`w-full h-full ${i % 2 == 0 ? 'bg-white' : 'bg-sky-50'}`}
     >
-      <p>{event.start}: {event.title}</p>
+      <p className='text-xs'>{event.start}: {event.title}</p>
     </div>
   );
 }
 
 export default Panel;
+
+
+
+
+
+
+
+
+
+
