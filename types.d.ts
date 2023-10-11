@@ -1,7 +1,5 @@
-import Calendar from "@/components/calendar";
-
-export type CalendarEvent = {
+export type TimeTableEvent = {
   title: string;
-  startTime: number;
-  endTime: number;
+  start: string;
+  end: string;
 };
