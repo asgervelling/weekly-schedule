@@ -14,7 +14,7 @@ export const timestampToIndex = (timestamp: string, n: number): number => {
     const [hours, minutes] = timestamp.split(":").map((str) => parseInt(str));
     const totalMinutes = hours * 60 + minutes;
     const timePeriodLength = 24 / n;
-    return totalMinutes / 60 / timePeriodLength;
+    return Math.round(totalMinutes / 60 / timePeriodLength);
 };
   
 /**
@@ -34,6 +34,6 @@ export const indexToTimestamp = (i: number, n: number): string => {
     const totalMinutes = i * timePeriodLength * 60;
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
-    const fmt = (s: number) => s.toString().padStart(2, '0');
+    const fmt = (n: number) => Math.round(n).toString().padStart(2, '0');
     return `${fmt(hours)}:${fmt(minutes)}`;
 };
