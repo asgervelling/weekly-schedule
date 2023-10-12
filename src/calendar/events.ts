@@ -2,8 +2,6 @@ import { indexToTimestamp, timestampToIndex } from './time_formats';
 import { CalendarEvent } from '../../types';
 
 
-const EMPTY_EVENT_COLOR = '';
-
 /**
  * An empty event in the calendar, which a user may overwrite
  * with a CalendarEvent.
@@ -13,7 +11,7 @@ const createEmptyEvent = (start: string, end: string): CalendarEvent => {
 };
 
 
-const isEmptyEvent = (e: CalendarEvent) => {
+export const isEmptyEvent = (e: CalendarEvent) => {
   return e.title === '';
 }
 

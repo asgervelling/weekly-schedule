@@ -1,6 +1,10 @@
 import React from 'react';
+import * as O from 'fp-ts/Option';
+import { pipe } from 'fp-ts/function';
+
 import { CalendarEvent } from '../../types';
 import { timestampToIndex } from '@/calendar/time_formats';
+import { isEmptyEvent } from '@/calendar/events';
 
 
 type PanelProps = {
@@ -11,9 +15,37 @@ type PanelProps = {
 
 
 /**
+ * A panel in a day of the calendar.
  * The i'th row in a Column divided into n sections
+ * of 24/n hours each.
  */
 const Panel: React.FC<PanelProps> = ({ i, n, event }) => {
+  return pipe(
+    event,
+    O.fromPredicate(isEmptyEvent),
+    O.match(
+      () => <EventPanel i={i} n={n} event={event} />,
+      () => <EmptyPanel i={i} n={n} event={event} />
+    )
+  );
+}
+
+
+const EmptyPanel: React.FC<PanelProps> = ({ i, n, event }) => {
+  return (
+    <div
+      key={i}
+      style={{
+        gridRowStart: timestampToIndex(event.start, n),
+        gridRowEnd: timestampToIndex(event.end, n),
+      }}
+      className={`w-full h-full ${i % 2 == 0 ? 'bg-gray-100' : 'bg-gray-150'}`}
+    />
+  );
+}
+
+
+const EventPanel: React.FC<PanelProps> = ({ i, n, event }) => {
   return (
     <div
       key={i}
@@ -22,7 +54,7 @@ const Panel: React.FC<PanelProps> = ({ i, n, event }) => {
         gridRowStart: timestampToIndex(event.start, n),
         gridRowEnd: timestampToIndex(event.end, n),
       }}
-      className={`w-full h-full ${i % 2 == 0 ? 'bg-white' : 'bg-sky-50'}`}
+      className={'w-full h-full'}
     >
       <p className='text-xs'>{event.start}: {event.title}</p>
     </div>
