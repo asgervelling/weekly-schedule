@@ -9,3 +9,20 @@ div#__next,
 div#__next > div {
 height: 100%;
 }
+
+@layer base {
+    :root {
+        --color-fill: #fff;
+        --color-fill-low-contrast: #fcf5c7;
+        --color-stroke: #adf7b6;
+        --color-stroke-low-contrast: #c8e6c9;
+        --color-text-base: #333333;
+        --color-text-muted: #36454f;
+        --color-text-inverted: #fdf5e6;
+    }
+
+    .text-xxs {
+        font-size: 0.625rem; /* 10px */
+        line-height: 1rem; /* 16 px */
+    }
+}

@@ -30,24 +30,23 @@ export const padEvents = (n: number, events: CalendarEvent[]): CalendarEvent[] =
     if (start >= end) {
       return;
     }
-    const startTime = indexToTimestamp(start, n);
-    const endTime = indexToTimestamp(start + 1, n);
-    const emptyEvent = createEmptyEvent(startTime, endTime);
-    paddedEvents.push(emptyEvent);
+    paddedEvents.push(createEmptyEvent(
+      indexToTimestamp(start, n),
+      indexToTimestamp(start + 1, n)));
     addEmptyEvents(start + 1, end);
   };
 
   let currentIndex = 0;
   for (const event of events) {
-    const eventStartIndex = timestampToIndex(event.start, n);
-    const eventEndIndex = timestampToIndex(event.end, n);
+    const start = timestampToIndex(event.start, n);
+    const end = timestampToIndex(event.end, n);
 
-    if (currentIndex < eventStartIndex) {
-      addEmptyEvents(currentIndex, eventStartIndex);
+    if (currentIndex < start) {
+      addEmptyEvents(currentIndex, start);
     }
     
     paddedEvents.push(event);
-    currentIndex = eventEndIndex;
+    currentIndex = end;
   }
 
   if (currentIndex < n) {

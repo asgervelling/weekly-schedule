@@ -20,7 +20,7 @@ const Column: React.FC<ColumnProps> = ({ n, events }) => {
   };
 
   return (
-    <div style={containerStyle} className='border-2 border-slate-950 text-slate-950'>
+    <div style={containerStyle} className='text-base text-xxs'>
       {padEvents(n, events).map((e, i) => (
         <Panel i={i} n={n} event={e} />
       ))}

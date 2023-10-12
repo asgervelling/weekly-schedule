@@ -1,5 +1,13 @@
 import './globals.css'
 
+import { Inter } from 'next/font/google'
+ 
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+})
+
 
 export default function RootLayout({
   children,
@@ -8,9 +16,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className='bg-[#FDF5E6]'>
+      <body className={`bg-fill ${inter.className}`}>
         <div className="flex items-center justify-center">
-          <div className="flex items-center justify-center h-4/5 w-[13%] bg-[#ebe5db]">
+          <div className="flex items-center justify-center h-4/5 w-[13%]">
             {children}
           </div>
         </div>  

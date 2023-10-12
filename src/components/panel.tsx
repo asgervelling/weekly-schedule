@@ -39,8 +39,11 @@ const EmptyPanel: React.FC<PanelProps> = ({ i, n, event }) => {
         gridRowStart: timestampToIndex(event.start, n),
         gridRowEnd: timestampToIndex(event.end, n),
       }}
-      className={`w-full h-full ${i % 2 == 0 ? 'bg-gray-100' : 'bg-gray-150'}`}
-    />
+      className={`w-full h-full text-xxs ${i % 2 == 0 ?  'bg-fill': 'bg-fillLowContrast'}`}
+    >
+    <p className='text-muted'>{event.start} </p>
+    <p className='text-base'>{event.title}</p>
+  </div>
   );
 }
 
@@ -54,9 +57,9 @@ const EventPanel: React.FC<PanelProps> = ({ i, n, event }) => {
         gridRowStart: timestampToIndex(event.start, n),
         gridRowEnd: timestampToIndex(event.end, n),
       }}
-      className={'w-full h-full'}
+      className={'w-full h-full text-xxs'}
     >
-      <p className='text-xs'>{event.start}: {event.title}</p>
+      <p>{event.start} {event.title}</p>
     </div>
   );
 }
