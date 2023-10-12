@@ -1,11 +1,11 @@
 import React from 'react';
-import { TimeTableEvent } from '../../types';
+import { CalendarEvent } from '../../types';
 import Panel from './panel';
 import { padEvents } from '@/calendar/events';
 
 type ColumnProps = {
   n: number;
-  events: TimeTableEvent[];
+  events: CalendarEvent[];
 };
 
 /**

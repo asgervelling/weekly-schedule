@@ -1,8 +1,8 @@
 import Column from "@/components/column";
-import { TimeTableEvent } from "../../types";
+import { CalendarEvent } from "../../types";
 
 export default function Home() {
-  const events: TimeTableEvent[] = [
+  const events: CalendarEvent[] = [
     {
       title: "Meeting",
       colorHex: "#c7e9f1",

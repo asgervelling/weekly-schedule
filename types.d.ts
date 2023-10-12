@@ -1,6 +1,6 @@
-export type TimeTableEvent = {
+export type CalendarEvent = {
   title: string;
   colorHex: string;
-  start: string; // 'hh:mm'
+  start: string;
   end: string;
 };

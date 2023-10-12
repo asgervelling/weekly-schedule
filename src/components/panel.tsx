@@ -1,12 +1,12 @@
 import React from 'react';
-import { TimeTableEvent } from '../../types';
+import { CalendarEvent } from '../../types';
 import { timestampToIndex } from '@/calendar/time_formats';
 
 
 type PanelProps = {
   i: number;
   n: number;
-  event: TimeTableEvent;
+  event: CalendarEvent;
 };
 
 

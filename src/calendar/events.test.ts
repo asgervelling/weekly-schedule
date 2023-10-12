@@ -1,8 +1,8 @@
-import { TimeTableEvent } from "../../types";
+import { CalendarEvent } from "../../types";
 import { padEvents } from "./events";
 
 
-const events_n24: TimeTableEvent[] = [
+const events_n24: CalendarEvent[] = [
   {
     title: 'A',
     colorHex: '',
