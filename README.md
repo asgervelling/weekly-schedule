@@ -6,10 +6,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ![alt text](color_schemes/color_scheme.png "Color scheme 0")
 ![alt text](color_schemes/color_scheme_1.png "Color scheme 1")
-![alt text](color_schemes/color_scheme_2.png "Color scheme "2)
-![alt text](color_schemes/color_scheme_3.png "Color scheme "3)
-![alt text](color_schemes/color_scheme_4.png "Color scheme "4)
-![alt text](color_schemes/color_scheme_5.png "Color scheme "5)
+![alt text](color_schemes/color_scheme_2.png "Color scheme 2")
+![alt text](color_schemes/color_scheme_3.png "Color scheme 3")
+![alt text](color_schemes/color_scheme_4.png "Color scheme 4")
+![alt text](color_schemes/color_scheme_5.png "Color scheme 5")
 
 ## Getting Started
 
