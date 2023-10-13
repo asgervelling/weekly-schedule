@@ -31,6 +31,10 @@ const Panel: React.FC<PanelProps> = ({ i, n, event, verticalLayout }) => {
   );
 }
 
+/**
+ * The panel for when a time slot has no CalendarEvent.
+ * Nice to have for its onClick features.
+ */
 const EmptyPanel: React.FC<PanelProps> = ({ i, n, event, verticalLayout }) => {
   return (
     <div
@@ -38,24 +42,29 @@ const EmptyPanel: React.FC<PanelProps> = ({ i, n, event, verticalLayout }) => {
       style={{
         ...gridStyle(verticalLayout, event, n),
       }}
-      className={`text-xxs resize-none h-full w-full ${i % 2 == 0 ? 'bg-fill' : 'bg-fillLowContrast'}`}
+      className={`text-xs lg:text-s h-full w-full
+                  ${i % 2 == 0 ? 'bg-fill' : 'bg-fillLowContrast'}
+                  ${verticalLayout ? 'flex-row' : 'flex-col'}
+                `}
     >
     </div>
   );
 }
 
+/**
+ * A panel with an event displayed inside it.
+ */
 const EventPanel: React.FC<PanelProps> = ({ i, n, event, verticalLayout }) => {
   return (
     <div
       key={i}
-      style={{
-        backgroundColor: event.colorHex,
-        ...gridStyle(verticalLayout, event, n),
-      }}
-      className={'text-xxs resize-none h-full w-full'}
+      style={{backgroundColor: event.colorHex,
+              ...gridStyle(verticalLayout, event, n)}}
+      className={`text-xs lg:text-lg h-full w-full flex
+                  ${verticalLayout ? 'flex-row' : 'flex-col'}`}
     >
-      <p className='text-muted'>{event.start} </p>
-      <p className='text-primary'>{event.title}</p>
+      <p className='pl-2 text-muted'>{event.start}</p>
+      <p className='pl-2 text-primary'>{event.title}</p>
     </div>
   );
 }

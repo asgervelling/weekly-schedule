@@ -18,27 +18,25 @@ type DayProps = {
  * @param {boolean} verticalLayout - Default: false. Indicates if the layout should be vertical.
  */
 const Day: React.FC<DayProps> = ({ n, events, verticalLayout}) => {
-  /* 
-  Our day needs to be scrollable somehow. That may fix other issues.
-  To make it scrollable, it probably needs to just be horizontal. Scrolling sideways is nasty.
-  To fix the zoom problem, here's what should happen when we resize the window or zoom in.
-
-  - Start and End increase and decrease, respectively
-  - The median is the current time of day
-  */
   const containerStyle: React.CSSProperties = {
     display: 'grid',
-    gridTemplateRows: verticalLayout ? `repeat(${n}, 1fr)` : '',
-    gridTemplateColumns: verticalLayout ? '' : `repeat(${n}, 1fr)`,
+    gridTemplateRows: verticalLayout ? `repeat(${n}, 1.5rem)` : '',
+    gridTemplateColumns: verticalLayout ? '' : `repeat(${n}, 3rem)`,
+    overflowY: verticalLayout ? 'scroll' : 'auto',
+    overflowX: verticalLayout ? 'auto' : 'scroll',
+    height: '100%',
+    width: '100%',
   };
 
+  // Todo: Change this whole component to use tailwind
   return (
-    <div style={containerStyle} className='text-primary text-xxs h-full w-full'>
+    <div style={containerStyle}>
       {padEvents(n, events).map((e, i) => (
         <Panel key={i} i={i} n={n} event={e} verticalLayout={verticalLayout} />
       ))}
     </div>
   );
 };
+  
 
 export default Day;
