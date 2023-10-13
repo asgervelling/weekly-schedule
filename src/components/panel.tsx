@@ -11,6 +11,7 @@ type PanelProps = {
   i: number;
   n: number;
   event: CalendarEvent;
+  verticalLayout: boolean;
 };
 
 
@@ -19,59 +20,57 @@ type PanelProps = {
  * The i'th row in a Day divided into n sections
  * of 24/n hours each.
  */
-const Panel: React.FC<PanelProps> = ({ i, n, event }) => {
+const Panel: React.FC<PanelProps> = ({ i, n, event, verticalLayout }) => {
   return pipe(
     event,
     O.fromPredicate(isEmptyEvent),
     O.match(
-      () => <EventPanel i={i} n={n} event={event} />,
-      () => <EmptyPanel i={i} n={n} event={event} />
+      () => <EventPanel i={i} n={n} event={event} verticalLayout={verticalLayout} />,
+      () => <EmptyPanel i={i} n={n} event={event} verticalLayout={verticalLayout} />
     )
   );
 }
 
-
-const EmptyPanel: React.FC<PanelProps> = ({ i, n, event }) => {
+const EmptyPanel: React.FC<PanelProps> = ({ i, n, event, verticalLayout }) => {
   return (
     <div
       key={i}
       style={{
-        gridRowStart: timestampToIndex(event.start, n),
-        gridRowEnd: timestampToIndex(event.end, n),
+        ...gridStyle(verticalLayout, event, n),
       }}
-      className={`w-full h-full text-xxs ${i % 2 == 0 ?  'bg-fill': 'bg-fillLowContrast'}`}
+      className={`text-xxs resize-none h-full w-full ${i % 2 == 0 ? 'bg-fill' : 'bg-fillLowContrast'}`}
     >
-    <p className='text-muted'>{event.start} </p>
-    <p className='text-primary'>{event.title}</p>
-  </div>
+    </div>
   );
 }
 
-
-const EventPanel: React.FC<PanelProps> = ({ i, n, event }) => {
+const EventPanel: React.FC<PanelProps> = ({ i, n, event, verticalLayout }) => {
   return (
     <div
       key={i}
       style={{
         backgroundColor: event.colorHex,
-        gridRowStart: timestampToIndex(event.start, n),
-        gridRowEnd: timestampToIndex(event.end, n),
+        ...gridStyle(verticalLayout, event, n),
       }}
-      className={'w-full h-full text-xxs'}
+      className={'text-xxs resize-none h-full w-full'}
     >
-      <p>{event.start} {event.title}</p>
+      <p className='text-muted'>{event.start} </p>
+      <p className='text-primary'>{event.title}</p>
     </div>
   );
 }
 
+
+const gridStyle = (verticalLayout: boolean, event: CalendarEvent, n: number) => {
+  return verticalLayout
+    ? {
+        gridRowStart: timestampToIndex(event.start, n),
+        gridRowEnd: timestampToIndex(event.end, n),
+      }
+    : {
+        gridColumnStart: timestampToIndex(event.start, n),
+        gridColumnEnd: timestampToIndex(event.end, n),
+      };
+}
+
 export default Panel;
-
-
-
-
-
-
-
-
-
-

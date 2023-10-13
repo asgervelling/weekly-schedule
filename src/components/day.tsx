@@ -19,17 +19,24 @@ type DayProps = {
  * A container for events in a day
  */
 const Day: React.FC<DayProps> = ({ n, events, verticalLayout}) => {
+  /* 
+  Our day needs to be scrollable somehow. That may fix other issues.
+  To make it scrollable, it probably needs to just be horizontal. Scrolling sideways is nasty.
+  To fix the zoom problem, here's what should happen when we resize the window or zoom in.
+
+  - Start and End increase and decrease, respectively
+  - The median is the current time of day
+  */
   const containerStyle: React.CSSProperties = {
     display: 'grid',
-    gridTemplateRows: verticalLayout ? `repeat(${n}, 1fr)` : `repeat(${n}, 1fr)`,
-    height: '100%',
-    width: '100%',
+    gridTemplateRows: verticalLayout ? `repeat(${n}, 1fr)` : '',
+    gridTemplateColumns: verticalLayout ? '' : `repeat(${n}, 1fr)`,
   };
 
   return (
-    <div style={containerStyle} className='text-primary text-xxs'>
+    <div style={containerStyle} className='text-primary text-xxs h-full w-full'>
       {padEvents(n, events).map((e, i) => (
-        <Panel key={i} i={i} n={n} event={e} />
+        <Panel key={i} i={i} n={n} event={e} verticalLayout={verticalLayout} />
       ))}
     </div>
   );
