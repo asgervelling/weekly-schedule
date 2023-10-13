@@ -20,7 +20,7 @@ type DayProps = {
 const Day: React.FC<DayProps> = ({ n, events, verticalLayout}) => {
   const containerStyle: React.CSSProperties = {
     display: 'grid',
-    gridTemplateRows: verticalLayout ? `repeat(${n}, 1.5rem)` : '',
+    gridTemplateRows: verticalLayout ? `repeat(${n}, 2rem)` : '',
     gridTemplateColumns: verticalLayout ? '' : `repeat(${n}, 3rem)`,
     overflowY: verticalLayout ? 'scroll' : 'auto',
     overflowX: verticalLayout ? 'auto' : 'scroll',
@@ -30,7 +30,10 @@ const Day: React.FC<DayProps> = ({ n, events, verticalLayout}) => {
 
   // Todo: Change this whole component to use tailwind
   return (
-    <div style={containerStyle}>
+    <div
+      style={containerStyle}
+      className={``}
+    >
       {padEvents(n, events).map((e, i) => (
         <Panel key={i} i={i} n={n} event={e} verticalLayout={verticalLayout} />
       ))}

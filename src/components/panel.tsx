@@ -42,7 +42,7 @@ const EmptyPanel: React.FC<PanelProps> = ({ i, n, event, verticalLayout }) => {
       style={{
         ...gridStyle(verticalLayout, event, n),
       }}
-      className={`text-xs lg:text-s h-full w-full
+      className={`text-xs lg:text-base text-md p-1
                   ${i % 2 == 0 ? 'bg-fill' : 'bg-fillLowContrast'}
                   ${verticalLayout ? 'flex-row' : 'flex-col'}
                 `}
@@ -60,7 +60,7 @@ const EventPanel: React.FC<PanelProps> = ({ i, n, event, verticalLayout }) => {
       key={i}
       style={{backgroundColor: event.colorHex,
               ...gridStyle(verticalLayout, event, n)}}
-      className={`text-xs lg:text-lg h-full w-full flex
+      className={`flex text-xs lg:text-base p-1 text-ellipsis
                   ${verticalLayout ? 'flex-row' : 'flex-col'}`}
     >
       <p className='pl-2 text-muted'>{event.start}</p>
