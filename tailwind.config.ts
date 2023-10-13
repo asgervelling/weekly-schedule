@@ -11,7 +11,7 @@ const config: Config = {
   theme: {
     extend: {
       textColor: {
-        base: 'var(--color-text-base)',
+        primary: 'var(--color-text-primary)',
         muted: 'var(--color-text-muted)',
         inverted: 'var(--color-text-inverted)',
       },

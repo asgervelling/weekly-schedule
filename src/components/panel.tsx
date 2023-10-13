@@ -16,7 +16,7 @@ type PanelProps = {
 
 /**
  * A panel in a day of the calendar.
- * The i'th row in a Column divided into n sections
+ * The i'th row in a Day divided into n sections
  * of 24/n hours each.
  */
 const Panel: React.FC<PanelProps> = ({ i, n, event }) => {
@@ -42,7 +42,7 @@ const EmptyPanel: React.FC<PanelProps> = ({ i, n, event }) => {
       className={`w-full h-full text-xxs ${i % 2 == 0 ?  'bg-fill': 'bg-fillLowContrast'}`}
     >
     <p className='text-muted'>{event.start} </p>
-    <p className='text-base'>{event.title}</p>
+    <p className='text-primary'>{event.title}</p>
   </div>
   );
 }

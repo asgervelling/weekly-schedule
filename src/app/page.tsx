@@ -1,5 +1,5 @@
-import Column from "@/components/column";
 import { CalendarEvent } from "../../types";
+import Day from "@/components/day";
 
 export default function Home() {
   const events: CalendarEvent[] = [
@@ -24,7 +24,7 @@ export default function Home() {
   ];
   return (
     <>
-      <Column n={48} events={events} />
+      <Day n={48} events={events} verticalLayout={false} />
     </>
   );
 }

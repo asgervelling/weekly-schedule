@@ -16,7 +16,7 @@ height: 100%;
         --color-fill-low-contrast: #fcf5c7;
         --color-stroke: #adf7b6;
         --color-stroke-low-contrast: #c8e6c9;
-        --color-text-base: #333333;
+        --color-text-primary: #333333;
         --color-text-muted: #36454f;
         --color-text-inverted: #fdf5e6;
     }
