@@ -4,11 +4,6 @@ import Panel from './panel';
 import { padEvents } from '@/calendar/events';
 
 
-/**
- * @param {number} n - The partition size of 24 hours split into n partitions.
- * @param {CalendarEvent[]} events - The events for the day.
- * @param {boolean} verticalLayout - Default: false. Indicates if the layout should be vertical.
- */
 type DayProps = {
   n: number;
   events: CalendarEvent[];
@@ -17,6 +12,10 @@ type DayProps = {
 
 /**
  * A container for events in a day
+ * 
+ * @param {number} n - The partition size of 24 hours split into n partitions.
+ * @param {CalendarEvent[]} events - The events for the day.
+ * @param {boolean} verticalLayout - Default: false. Indicates if the layout should be vertical.
  */
 const Day: React.FC<DayProps> = ({ n, events, verticalLayout}) => {
   /* 
