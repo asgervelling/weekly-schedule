@@ -20,7 +20,7 @@ const Day: React.FC<DayProps> = ({ n, events }) => {
   return (
     <div
       style={{gridTemplateRows: `repeat(${n}, 1.5rem)`}}
-      className={'grid overflow-y-auto h-full w-full'}
+      className={'grid h-full w-full'}
     >
       {padEvents(n, events).map((e, i) => (
         <Panel key={i} i={i} n={n} event={e} />

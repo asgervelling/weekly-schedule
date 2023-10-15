@@ -1,3 +1,4 @@
+import Week from '@/components/Week';
 import { CalendarEvent } from '../../types';
 import Day from '@/components/Day';
 
@@ -24,7 +25,7 @@ export default function Home() {
   ];
   return (
     <>
-      <Day n={24} events={events} />
+      <Week n={48} events={events} />
     </>
   );
 }
