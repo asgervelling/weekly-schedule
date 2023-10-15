@@ -10,16 +10,11 @@
  * @param n The number of time periods to split 24 hours into
  * @returns An index that can be used to create the timestamp
  */
-export const timestampToIndex = (timestamp: string, n: number): number => {
-  const [hours, minutes] = timestamp.split(":").map((str) => parseInt(str));
+export const timestampToIndex = (ts: string, n: number): number => {
+  const [hours, minutes] = ts.split(":").map((str) => parseInt(str));
   const totalMinutes = hours * 60 + minutes;
   const timePeriodLength = 24 / n;
   return Math.round(totalMinutes / 60 / timePeriodLength);
-};
-
-
-export const timeIntervalToIndex = (start: string, end: string, n: number): number => {
-  return timestampToIndex(end, n) - timestampToIndex(start, n);
 };
 
 
@@ -45,7 +40,7 @@ export const indexToTimestamp = (i: number, n: number): string => {
 };
 
 
-/** 10:00 + 7:15 == 17:15 */
+/** (10:00 + 7:15) -> 17:15 */
 export const addTimestamps = (t1: string, t2: string): string => {
   // Todo: Testing
   const [h1, m1] = t1.split(':').map((str) => parseInt(str));
