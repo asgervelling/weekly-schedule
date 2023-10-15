@@ -7,7 +7,7 @@ import { CalendarEvent } from '../../types';
  * with a CalendarEvent.
  */
 const createEmptyEvent = (start: string, end: string): CalendarEvent => {
-    return { title: '', colorHex: '#abcdef', start, end };
+    return { title: '', colorHex: '', start, end };
 };
 
 
