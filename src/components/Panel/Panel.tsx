@@ -2,7 +2,7 @@ import React from 'react';
 import * as O from 'fp-ts/Option';
 import { pipe } from 'fp-ts/function';
 
-import { CalendarEvent } from '../../types';
+import { CalendarEvent } from '../../../types';
 import { timestampToIndex } from '@/calendar/time_formats';
 import { isEmptyEvent } from '@/calendar/events';
 
@@ -63,10 +63,11 @@ const EventPanel: React.FC<PanelProps> = ({ i, n, event }) => {
     <div
       key={i}
       style={gridStyle}
-      className={`flex-row text-xs lg:text-base p-1 text-ellipsis`}
+      className={`flex-row lg:text-base p-1 text-ellipsis`}
     >
-      <p className='pl-2 text-muted'>{event.start}</p>
-      <p className='pl-2 text-primary'>{event.title}</p>
+      <p className='pl-2 text-primary text-xs'>
+        <span className='text-muted'>{event.start}:</span> {event.title}
+      </p>
     </div>
   );
 }
