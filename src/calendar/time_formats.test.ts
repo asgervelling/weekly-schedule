@@ -34,6 +34,7 @@ describe('indexToTimestamp', () => {
 describe('addTimestamps', () => {
   it('should add two timestamps together', () => {
     expect(addTimestamps('10:00', '7:15')).toBe('17:15');
+    expect(addTimestamps('10:00', '-7:15')).toBe('02:45');
     expect(addTimestamps('10:00', '0:00')).toBe('10:00');
     expect(addTimestamps('10:00', '0:01')).toBe('10:01');
     expect(addTimestamps('10:00', '00:59')).toBe('10:59');

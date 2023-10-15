@@ -18,6 +18,7 @@ const randomDay = (): CalendarEvent[] => {
   const hours = Math.floor(Math.random() * 5) - 2;
   const minutes = Math.floor(Math.random() * 60);
   const ts = `${hours}:${minutes}`
+  console.log(ts);
 
   const events: CalendarEvent[] = randomEvents(titles, colors, startTimes, endTimes);
   return events.map((event) => (

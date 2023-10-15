@@ -42,9 +42,12 @@ export const indexToTimestamp = (i: number, n: number): string => {
 
 /** (10:00 + 7:15) -> 17:15 */
 export const addTimestamps = (t1: string, t2: string): string => {
-  // Todo: Testing
-  const [h1, m1] = t1.split(':').map((str) => parseInt(str));
-  const [h2, m2] = t2.split(':').map((str) => parseInt(str));
+  const readTs = (ts: string) => {
+    const [h, m] = ts.split(':').map((s) => parseInt(s));
+    return [h, m * (h < 0 ? -1 : 1)]
+  };
+  let [h1, m1] = readTs(t1);
+  let [h2, m2] = readTs(t2);
   const totalMinutes = (h1 + h2) * 60 + m1 + m2;
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
