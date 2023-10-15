@@ -43,3 +43,16 @@ export const indexToTimestamp = (i: number, n: number): string => {
   const fmt = (n: number) => Math.round(n).toString().padStart(2, '0');
   return `${fmt(hours)}:${fmt(minutes)}`;
 };
+
+
+/** 10:00 + 7:15 == 17:15 */
+export const addTimestamps = (t1: string, t2: string): string => {
+  // Todo: Testing
+  const [h1, m1] = t1.split(':').map((str) => parseInt(str));
+  const [h2, m2] = t2.split(':').map((str) => parseInt(str));
+  const totalMinutes = (h1 + h2) * 60 + m1 + m2;
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  const fmt = (n: number) => Math.round(n).toString().padStart(2, '0');
+  return `${fmt(hours)}:${fmt(minutes)}`;
+}

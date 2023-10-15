@@ -1,31 +1,8 @@
 import Week from '@/components/Week';
 import { CalendarEvent } from '../../types';
-import Day from '@/components/Day';
+import { randomWeek } from '@/mockdata/event_data';
+
 
 export default function Home() {
-  const events: CalendarEvent[] = [
-    {
-      title: 'Meeting',
-      colorHex: '#79addc',
-      start: '09:00',
-      end: '10:30',
-    },
-    {
-      title: 'Write report',
-      colorHex: '#ffc09f',
-      start: '10:30',
-      end: '15:30',
-    },
-    {
-      title: 'Read book',
-      colorHex: '#adf8b6',
-      start: '20:00',
-      end: '20:30',
-    }
-  ];
-  return (
-    <>
-      <Week n={48} events={events} />
-    </>
-  );
+  return <Week n={48} events={randomWeek()} />;
 }
