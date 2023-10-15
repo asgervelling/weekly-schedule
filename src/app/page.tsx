@@ -24,7 +24,7 @@ export default function Home() {
   ];
   return (
     <>
-      <Day n={48} events={events} />
+      <Day n={24} events={events} />
     </>
   );
 }
