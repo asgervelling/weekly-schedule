@@ -10,6 +10,11 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        note1: 'var(--color-note-1)',
+        note2: 'var(--color-note-2)',
+        note3: 'var(--color-note-3)',
+      },
       textColor: {
         primary: 'var(--color-text-primary)',
         muted: 'var(--color-text-muted)',
