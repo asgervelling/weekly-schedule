@@ -7,7 +7,6 @@ import { padEvents } from '@/calendar/events';
 type DayProps = {
   n: number;
   events: CalendarEvent[];
-  verticalLayout: boolean;
 };
 
 /**
@@ -17,13 +16,11 @@ type DayProps = {
  * @param {CalendarEvent[]} events - The events for the day.
  * @param {boolean} verticalLayout - Default: false. Indicates if the layout should be vertical.
  */
-const Day: React.FC<DayProps> = ({ n, events, verticalLayout}) => {
+const Day: React.FC<DayProps> = ({ n, events }) => {
   const containerStyle: React.CSSProperties = {
     display: 'grid',
-    gridTemplateRows: verticalLayout ? `repeat(${n}, 2rem)` : '',
-    gridTemplateColumns: verticalLayout ? '' : `repeat(${n}, 3rem)`,
-    overflowY: verticalLayout ? 'scroll' : 'auto',
-    overflowX: verticalLayout ? 'auto' : 'scroll',
+    gridTemplateRows: `repeat(${n}, 2rem)`,
+    overflowY: 'auto',
     height: '100%',
     width: '100%',
   };
@@ -35,7 +32,7 @@ const Day: React.FC<DayProps> = ({ n, events, verticalLayout}) => {
       className={``}
     >
       {padEvents(n, events).map((e, i) => (
-        <Panel key={i} i={i} n={n} event={e} verticalLayout={verticalLayout} />
+        <Panel key={i} i={i} n={n} event={e} />
       ))}
     </div>
   );
