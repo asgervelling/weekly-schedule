@@ -1,5 +1,5 @@
 import { CalendarEvent, TimeStamp } from '../../types';
-import { minutesToTs, tsToMinutes, addTimestamps, parseTs, tsLt, minTs, tsDiff, formatTs, tsLeq, tsGeq, tsGt } from './timestamps';
+import { minutesToTs, tsToMinutes, addTimestamps, parseTs, tsLt, minTs, tsDiff, tsGeq } from './timestamps';
 
 
 /**
@@ -16,6 +16,10 @@ export const isEmptyEvent = (e: CalendarEvent) => {
 };
 
 
+/**
+ * Insert an event into an array of events,
+ * using an opinionated algorithm.
+ */
 export const insertEvent = (e: CalendarEvent, events: CalendarEvent[]): CalendarEvent[] => {
   if (events.length === 0) {
     // base case for recursion
@@ -45,7 +49,7 @@ export const insertEvent = (e: CalendarEvent, events: CalendarEvent[]): Calendar
     const newX = { ...x, start: e.end };
     return [e, newX, ...xs];
   }
-  if (tsLeq(x.start, e.start) && tsGeq(e.end, x.end)) {
+  if (tsLt(x.start, e.start) && tsGeq(e.end, x.end)) {
     // e's start shortens x
     const newX = { ...x, end: e.start };
     return [newX, ...insertEvent(e, xs)]
