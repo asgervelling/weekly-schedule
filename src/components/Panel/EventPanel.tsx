@@ -6,9 +6,9 @@ import PanelLayout from './PanelLayout';
 /**
  * A panel with an event displayed inside it.
  */
-const EventPanel: React.FC<PanelProps> = ({ n, event }) => {
+const EventPanel: React.FC<PanelProps> = ({ event, dayHeight }) => {
   return (
-    <PanelLayout n={n} event={event}>
+    <PanelLayout event={event} dayHeight={dayHeight} >
       <p style={{backgroundColor: event.colorHex}} className='h-full text-primary text-xs p-1'>
         <span className='text-muted'>{event.start}:</span> {event.title}
       </p>

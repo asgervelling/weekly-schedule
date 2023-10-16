@@ -13,7 +13,7 @@ const createEmptyEvent = (start: string, end: string): CalendarEvent => {
 
 export const isEmptyEvent = (e: CalendarEvent) => {
   return e.title === '';
-}
+};
 
 
 /**

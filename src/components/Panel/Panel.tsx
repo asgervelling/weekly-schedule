@@ -9,9 +9,8 @@ import EmptyPanel from './EmptyPanel';
 
 
 export type PanelProps = {
-  i: number;
-  n: number;
   event: CalendarEvent;
+  dayHeight: number;
 };
 
 
@@ -20,13 +19,13 @@ export type PanelProps = {
  * The i'th row in a Day divided into n sections
  * of 24/n hours each.
  */
-const Panel: React.FC<PanelProps> = ({ i, n, event }) => {
+const Panel: React.FC<PanelProps> = ({ event, dayHeight }) => {
   return pipe(
     event,
     O.fromPredicate(isEmptyEvent),
     O.match(
-      () => <EventPanel i={i} n={n} event={event} />,
-      () => <EmptyPanel i={i} n={n} event={event} />
+      () => <EmptyPanel event={event} dayHeight={dayHeight} />,
+      () => <EventPanel event={event} dayHeight={dayHeight} />
     )
   );
 }
