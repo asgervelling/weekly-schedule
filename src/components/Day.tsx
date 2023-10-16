@@ -1,4 +1,3 @@
-"use effect";
 import React from 'react';
 import { CalendarEvent } from '../../types';
 import { padEvents } from '@/calendar/events';

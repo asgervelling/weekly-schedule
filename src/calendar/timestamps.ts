@@ -19,6 +19,9 @@ export const minutesToTs = (minutes: number): TimeStamp => {
 };
 
 
+/**
+ * t1 + t2
+ */
 export const addTimestamps = (t1: TimeStamp, t2: TimeStamp): TimeStamp => {
   const m1 = tsToMinutes(t1);
   const m2 = tsToMinutes(t2);
