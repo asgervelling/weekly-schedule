@@ -30,6 +30,15 @@ export const addTimestamps = (t1: TimeStamp, t2: TimeStamp): TimeStamp => {
 
 
 /**
+ * t1 - t2
+ */
+export const subTimestamps = (t1: TimeStamp, t2: TimeStamp): TimeStamp => {
+  const m1 = tsToMinutes(t1);
+  const m2 = tsToMinutes(t2);
+  return minutesToTs(m1 - m2);
+}
+
+/**
  * t1 === t2
  */
 export const tsEq = (t1: TimeStamp, t2: TimeStamp): boolean => {

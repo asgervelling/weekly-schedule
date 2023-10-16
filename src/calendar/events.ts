@@ -1,5 +1,6 @@
+import { match } from 'assert';
 import { CalendarEvent, TimeStamp } from '../../types';
-import { minutesToTs, tsToMinutes, addTimestamps, parseTs, tsLt, minTs, tsDiff, formatTs } from './timestamps';
+import { minutesToTs, tsToMinutes, addTimestamps, parseTs, tsLt, minTs, tsDiff, formatTs, tsLeq, tsGeq } from './timestamps';
 
 
 /**
@@ -13,6 +14,40 @@ export const createEmptyEvent = (start: TimeStamp, end: TimeStamp): CalendarEven
 
 export const isEmptyEvent = (e: CalendarEvent) => {
   return e.title === '';
+};
+
+
+export const insertEvent = (e: CalendarEvent, events: CalendarEvent[]): CalendarEvent[] => {
+  if (events.length === 0) {
+    // base case for recursion
+    return [e];
+  }
+  const [x, ...xs] = events;
+  if (tsGeq(x.start, e.end)) {
+    // e is before x, so e is inserted first
+    return [e, x, ...xs];
+  }
+
+  if (tsLt(x.start, e.start) && tsLt(e.end, x.end)) {
+    // e is contained in x and not inserted
+    return [x, ...xs];
+  }
+  if (tsGeq(x.start, e.start) && tsGeq(e.end, x.end)) {
+    // x is contained in e and overwritten
+    return [e, ...xs];
+  }
+  
+  if (tsGeq(x.start, e.start) && tsLt(e.start, x.end)) {
+    // e pushes the start of x forward
+    const newX = { ...x, start: e.end };
+    return [e, newX, ...xs];
+  }
+  if (tsLeq(x.start, e.start) && tsGeq(e.end, x.end)) {
+    // e's start shortens x
+    const newX = { ...x, end: e.start };
+    return [newX, ...insertEvent(e, xs)]
+  }
+  throw new Error('Case not handled');
 };
 
 

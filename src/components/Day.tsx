@@ -11,8 +11,6 @@ type DayProps = {
 
 /**
  * A container for events in a day
- * 
- * @param {CalendarEvent[]} events - The events for the day.
  */
 const Day: React.FC<DayProps> = ({ events }) => {
   const h = 960;

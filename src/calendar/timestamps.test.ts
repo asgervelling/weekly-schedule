@@ -5,6 +5,7 @@ import {
   formatTs,
   parseTs,
   addTimestamps,
+  subTimestamps,
   tsEq,
   tsLt,
   tsLeq,
@@ -57,6 +58,17 @@ describe('addTimestamps', () => {
     expect(addTimestamps(p('10:00'), p('00:59'))).toEqual(p('10:59'));
     expect(addTimestamps(p('23:59'), p('0:01'))).toEqual(p('24:00'));
   })
+});
+
+describe('subTimestamps', () => {
+  it('should subtract two timestamps', () => {
+    expect(subTimestamps(p('10:00'), p('7:15'))).toEqual(p('02:45'));
+    expect(subTimestamps(p('10:00'), p('-7:15'))).toEqual(p('17:15'));
+    expect(subTimestamps(p('10:00'), p('0:00'))).toEqual(p('10:00'));
+    expect(subTimestamps(p('10:00'), p('0:01'))).toEqual(p('09:59'));
+    expect(subTimestamps(p('10:00'), p('00:59'))).toEqual(p('09:01'));
+    expect(subTimestamps(p('23:59'), p('0:01'))).toEqual(p('23:58'));
+  });
 });
 
 describe('formatTs', () => {
