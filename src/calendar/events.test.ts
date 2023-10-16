@@ -4,36 +4,6 @@ import { parseTs } from "./timestamps";
 import { createEmptyEvent } from "./events";
 
 
-const testEvents: CalendarEvent[] = [
-  {
-    title: 'A',
-    colorHex: '',
-    start: parseTs('00:00'),
-    end: parseTs('01:00'),
-  },
-  {
-    title: 'B',
-    colorHex: '',
-    start: parseTs('10:00'),
-    end: parseTs('11:00'),
-  },
-  {
-    title: 'C',
-    colorHex: '',
-    start: parseTs('17:00'),
-    end: parseTs('19:00'),
-  },
-];
-
-const emptyEvents = (): CalendarEvent[] => {
-  const p = parseTs;
-  return [
-    createEmptyEvent(p('11:00'), p('12:00')),
-    createEmptyEvent(p('11:30'), p('13:00')),
-    createEmptyEvent(p('15:00'), p('16:00')),
-  ]
-};
-
 const createEvent = (title: string, start: string, end: string): CalendarEvent => {
   return {
     title: title,
@@ -122,7 +92,6 @@ describe('insertEvent', () => {
   it('Case: e is inserted after x', () => {
     const e = createEvent('e', '10:00', '11:00');
     const x = createEvent('x', '08:00', '09:00');
-    console.log(insertEvent(e, [x]));
     expect(insertEvent(e, [x])).toEqual([
       createEvent('x', '08:00', '09:00'),
       createEvent('e', '10:00', '11:00'),
@@ -148,7 +117,30 @@ describe('insertEvent', () => {
       createEvent('y', '11:00', '11:30'),
     ]);
   });
+  it('Case: e is inserted after x, overwriting y', () => {
+    const e = createEvent('e', '10:00', '11:00');
+    const x = createEvent('x', '09:00', '10:00');
+    const y = createEvent('y', '10:00', '11:00');
+    expect(insertEvent(e, [x, y])).toEqual([
+      createEvent('x', '09:00', '10:00'),
+      createEvent('e', '10:00', '11:00'),
+    ]);
+  });
+  it('Edge case', () => {
+    const e = createEvent('e', '14:00', '16:00');
+    const x = createEvent('x', '10:00', '12:00');
+    expect(insertEvent(e, [x])).toEqual([
+      createEvent('x', '10:00', '12:00'),
+      createEvent('e', '14:00', '16:00'),
+    ]);
+  });
 });
+
+const testEvents: CalendarEvent[] = [
+  createEvent('A', '00:00', '01:00'),
+  createEvent('B', '10:00', '11:00'),
+  createEvent('C', '17:00', '19:00'),
+];
 
 describe('padEvents', () => {
   it('should create an array with events from 00:00 till 23:59', () => {

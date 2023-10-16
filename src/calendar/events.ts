@@ -51,7 +51,6 @@ export const insertEvent = (e: CalendarEvent, events: CalendarEvent[]): Calendar
     return [newX, ...insertEvent(e, xs)]
   }
   
-  
   console.log('Warning: Case not handled');
   return [];
 };
