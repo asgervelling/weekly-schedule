@@ -17,12 +17,33 @@ height: 100%;
         --color-note-2: #ffc09f;
         --color-note-3: #adf7b6;
         --color-text-primary: #333333;
-        --color-text-muted: #36454f;
+        --color-text-muted: #4e4e4e;
         --color-text-inverted: #fdf5e6;
     }
 
     .text-xxs {
         font-size: 0.625rem; /* 10px */
         line-height: 1rem; /* 16 px */
+    }
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 5px;
+    }
+    
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
     }
 }

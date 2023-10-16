@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Week from "./Week";
 import { randomWeek } from "@/mockdata/event_data";
 import { CalendarEvent } from "../../types";
+import Button from "./Button";
 
 const Schedule: React.FC = () => {
   const [weekData, setWeekData] = useState<CalendarEvent[][] | null>(null);
@@ -17,9 +18,9 @@ const Schedule: React.FC = () => {
 
   return (
     <>
-      <button onClick={updateWeekData}>
+      <Button onClick={updateWeekData}>
         Click me!
-      </button>
+      </Button>
       {weekData && <Week days={weekData} />}
     </>
   );

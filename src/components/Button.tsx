@@ -3,11 +3,11 @@ type ButtonProps = {
   onClick: () => void;
 };
 
-const Button = ({ children }: ButtonProps) => {
+const Button = ({ children, onClick }: ButtonProps) => {
   return (
     <button
-      className="bg-secondary-color py-4 px-14 rounded text-white"
-      onClick={() => console.log('hello from child')}
+      className="bg-stroke py-4 px-14 rounded text-primary"
+      onClick={onClick}
     >
       {children}
     </button>
