@@ -18,11 +18,11 @@ type DayProps = {
  * @param {CalendarEvent[]} events - The events for the day.
  */
 const Day: React.FC<DayProps> = ({ n, events }) => {
-  const h = 480;
+  const h = 960;
   return (
     <>
       {padEvents(n, events).map((e, i) => (
-        <Panel key={i} event={e} />
+        <Panel key={i} event={e} dayHeight={h} />
       ))}
     </>
   );
