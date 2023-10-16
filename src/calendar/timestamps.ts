@@ -55,17 +55,17 @@ export const tsLeq = (t1: TimeStamp, t2: TimeStamp): boolean => {
 /**
  * t1 > t2
  */
-export const tsGeq = (t1: TimeStamp, t2: TimeStamp): boolean => {
-  return tsLeq(t2, t1);
-};
-
-
-/**
- * True if t1 is after t2
- */
 export const tsGt = (t1: TimeStamp, t2: TimeStamp): boolean => {
   return tsLt(t2, t1);
 }
+
+
+/**
+ * t1 >= t2
+ */
+export const tsGeq = (t1: TimeStamp, t2: TimeStamp): boolean => {
+  return tsLeq(t2, t1);
+};
 
 /**
  * Return the minimum of two TimeStamps
