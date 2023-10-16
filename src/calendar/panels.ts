@@ -1,14 +1,14 @@
 import { CalendarEvent } from "../../types";
+import { tsToMinutes } from "./timestamps";
+
 
 /**
- * h_p = m_e / m_d * h_d \
- * where \
- * h_p = height of panel \
- * m_e = minutes in event \
- * m_d = minutes in day \
- * h_d = height of day
+ * Get the height of a panel in pixels
+ * @param e The event to get the height of
+ * @param dayHeight The height of the day in pixels
  */
-// export const panelHeight = (e: CalendarEvent): number => {
-//   m_e = 
-//   return Math.round()
-// };
+export const panelHeight = (e: CalendarEvent, dayHeight: number): number => {
+  const me = tsToMinutes(e.end) - tsToMinutes(e.start);
+  const md = 24 * 60;
+  return Math.round(me / md * dayHeight);
+};

@@ -1,12 +1,13 @@
-import { indexToTimestamp, timestampToIndex } from './time_formats';
-import { CalendarEvent } from '../../types';
+import { indexToTimestamp } from './time_formats';
+import { CalendarEvent, TimeStamp } from '../../types';
+import { minutesToTs, tsToMinutes, addTimestamps, parseTs, tsLt } from './timestamps';
 
 
 /**
  * An empty event in the calendar, which a user may overwrite
  * with a CalendarEvent.
  */
-const createEmptyEvent = (start: string, end: string): CalendarEvent => {
+const createEmptyEvent = (start: TimeStamp, end: TimeStamp): CalendarEvent => {
     return { title: '', colorHex: '', start, end };
 };
 
@@ -21,37 +22,32 @@ export const isEmptyEvent = (e: CalendarEvent) => {
  * empty events, so that it fills the time period 00:00 - 23:59
  */
 export const padEvents = (n: number, events: CalendarEvent[]): CalendarEvent[] => {
+  console.log(n, events);
   const paddedEvents: CalendarEvent[] = [];
 
   /**
    * Add empty events from now until the next event
    */
-  const addEmptyEvents = (start: number, end: number): void => {
-    if (start >= end) {
+  const addEmptyEvents = (start: TimeStamp, end: TimeStamp): void => {
+    if (tsToMinutes(start) >= tsToMinutes(end)) {
       return;
     }
-    paddedEvents.push(createEmptyEvent(
-      indexToTimestamp(start, n),
-      indexToTimestamp(start + 1, n)));
-    addEmptyEvents(start + 1, end);
+    const delta = minutesToTs(Math.round(24 * 60 / n));
+    const t1 = addTimestamps(start, delta);
+    paddedEvents.push(createEmptyEvent(start, t1));
+    addEmptyEvents(t1, end);
   };
 
-  let currentIndex = 0;
-  for (const event of events) {
-    const start = timestampToIndex(event.start, n);
-    const end = timestampToIndex(event.end, n);
-
-    if (currentIndex < start) {
-      addEmptyEvents(currentIndex, start);
+  let currentTs = parseTs('00:00');
+  for (const e of events) {
+    if (tsLt(currentTs, e.start)) {
+      addEmptyEvents(currentTs, e.start);
     }
-    
-    paddedEvents.push(event);
-    currentIndex = end;
+    paddedEvents.push(e);
+    currentTs = e.end;
   }
-
-  if (currentIndex < n) {
-    addEmptyEvents(currentIndex, n);
+  if (tsLt(currentTs, parseTs('23:59'))) {
+    addEmptyEvents(currentTs, parseTs('23:59'));
   }
-
   return paddedEvents;
 };

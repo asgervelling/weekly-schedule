@@ -4,6 +4,11 @@ import {
   tsDiff,
   formatTs,
   parseTs,
+  tsEq,
+  tsLt,
+  tsLeq,
+  tsGeq,
+  tsGt,
 } from './timestamps';
 
 
@@ -61,3 +66,41 @@ describe('parseTs', () => {
     expect(() => parseTs('')).toThrow();
   });
 });
+
+describe('comparison functions', () => {
+  const t1 = { h: 10, m: 30 };
+  const t1Copy = { h: 10, m: 30 };
+  const t2 = { h: 2, m: 15 };
+
+  it('should correctly compare TimeStamps for equality', () => {
+    expect(tsEq(t1, t1)).toBe(true);
+    expect(tsEq(t1, t1Copy)).toBe(true);
+    expect(tsEq(t1, t2)).toBe(false);
+  });
+
+  it('should correctly compare TimeStamps for less than', () => {
+    expect(tsLt(t2, t1)).toBe(true);
+    expect(tsLt(t1, t2)).toBe(false);
+    expect(tsLt(t1, t1Copy)).toBe(false);
+  });
+
+  it('should correctly compare TimeStamps for less than or equal', () => {
+    expect(tsLeq(t1, t1Copy)).toBe(true);
+    expect(tsLeq(t1, t2)).toBe(false);
+    expect(tsLeq(t2, t1)).toBe(true);
+  });
+
+  it('should correctly compare TimeStamps for greater than or equal', () => {
+    expect(tsGeq(t1, t1Copy)).toBe(true);
+    expect(tsGeq(t1, t2)).toBe(true);
+    expect(tsGeq(t2, t1)).toBe(false);
+  });
+
+  it('should correctly compare TimeStamps for greater than', () => {
+    expect(tsGt(t1, t1)).toBe(false);
+    expect(tsGt(t1, t2)).toBe(true);
+    expect(tsGt(t2, t1)).toBe(false);
+  });
+});
+
+describe

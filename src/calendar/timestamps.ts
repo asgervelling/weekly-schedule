@@ -1,12 +1,4 @@
-import { CalendarEvent, TimeStamp } from "../../types";
-
-
-// const panelHeight = (e: CalendarEvent): number => {
-//   const m_e = tsToMinutes(tsDiff(e.start, e.end));
-//   const m_d = 24 * 60;
-//   const h_d = 100;
-//   return Math.round(m_e / m_d * h_d);
-// };
+import { TimeStamp } from "../../types";
 
 
 /**
@@ -25,6 +17,55 @@ export const minutesToTs = (minutes: number): TimeStamp => {
   const m = Math.abs(minutes) % 60;
   return { h, m };
 };
+
+
+export const addTimestamps = (t1: TimeStamp, t2: TimeStamp): TimeStamp => {
+  const m1 = tsToMinutes(t1);
+  const m2 = tsToMinutes(t2);
+  return minutesToTs(m1 + m2);
+};
+
+
+/**
+ * t1 === t2
+ */
+export const tsEq = (t1: TimeStamp, t2: TimeStamp): boolean => {
+  return t1.h === t2.h && t1.m === t2.m;
+};
+
+
+/**
+ * t1 < t2
+ */
+export const tsLt = (t1: TimeStamp, t2: TimeStamp): boolean => {
+  const m1 = tsToMinutes(t1);
+  const m2 = tsToMinutes(t2);
+  return m1 < m2;
+};
+
+
+/**
+ * t1 <= t2
+ */
+export const tsLeq = (t1: TimeStamp, t2: TimeStamp): boolean => {
+  return tsLt(t1, t2) || tsEq(t1, t2);
+};
+
+
+/**
+ * t1 > t2
+ */
+export const tsGeq = (t1: TimeStamp, t2: TimeStamp): boolean => {
+  return tsLeq(t2, t1);
+};
+
+
+/**
+ * True if t1 is after t2
+ */
+export const tsGt = (t1: TimeStamp, t2: TimeStamp): boolean => {
+  return tsLt(t2, t1);
+}
 
 
 /**

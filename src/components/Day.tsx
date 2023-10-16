@@ -18,7 +18,7 @@ type DayProps = {
  * @param {CalendarEvent[]} events - The events for the day.
  */
 const Day: React.FC<DayProps> = ({ n, events }) => {
-  
+  const h = 480;
   return (
     <>
       {padEvents(n, events).map((e, i) => (
