@@ -22,7 +22,6 @@ export const isEmptyEvent = (e: CalendarEvent) => {
  * empty events, so that it fills the time period 00:00 - 23:59
  */
 export const padEvents = (n: number, events: CalendarEvent[]): CalendarEvent[] => {
-  console.log(n, events);
   const paddedEvents: CalendarEvent[] = [];
 
   /**
