@@ -7,7 +7,7 @@ import { minutesToTs, tsToMinutes, addTimestamps, parseTs, tsLt } from './timest
  * An empty event in the calendar, which a user may overwrite
  * with a CalendarEvent.
  */
-const createEmptyEvent = (start: TimeStamp, end: TimeStamp): CalendarEvent => {
+export const createEmptyEvent = (start: TimeStamp, end: TimeStamp): CalendarEvent => {
     return { title: '', colorHex: '', start, end };
 };
 
@@ -21,17 +21,19 @@ export const isEmptyEvent = (e: CalendarEvent) => {
  * Create an array of events that has been padded with
  * empty events, so that it fills the time period 00:00 - 23:59
  */
-export const padEvents = (n: number, events: CalendarEvent[]): CalendarEvent[] => {
+export const padEvents = (events: CalendarEvent[]): CalendarEvent[] => {
   const paddedEvents: CalendarEvent[] = [];
 
   /**
-   * Add empty events from now until the next event
+   * Add empty events from now until the next event.
+   * The empty events have a length in minutes of
+   * min(30 minutes, time to next event)
    */
   const addEmptyEvents = (start: TimeStamp, end: TimeStamp): void => {
     if (tsToMinutes(start) >= tsToMinutes(end)) {
       return;
     }
-    const delta = minutesToTs(Math.round(24 * 60 / n));
+    const delta = minutesToTs(30);
     const t1 = addTimestamps(start, delta);
     paddedEvents.push(createEmptyEvent(start, t1));
     addEmptyEvents(t1, end);

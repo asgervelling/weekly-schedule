@@ -10,6 +10,8 @@ import {
   tsLeq,
   tsGeq,
   tsGt,
+  minTs,
+  maxTs,
 } from './timestamps';
 
 
@@ -117,4 +119,19 @@ describe('comparison functions', () => {
   });
 });
 
-describe
+describe('minTs', () => {
+  it('should return the minimum of two TimeStamps', () => {
+    expect(minTs(p('10:00'), p('7:15'))).toEqual(p('07:15'));
+    expect(minTs(p('10:00'), p('17:15'))).toEqual(p('10:00'));
+    expect(minTs(p('10:00'), p('10:00'))).toEqual(p('10:00'));
+  });
+});
+
+describe('maxTs', () => {
+  it('should return the maximum of two TimeStamps', () => {
+    // Test maxTs
+    expect(maxTs(p('10:00'), p('7:15'))).toEqual(p('10:00'));
+    expect(maxTs(p('10:00'), p('17:15'))).toEqual(p('17:15'));
+    expect(maxTs(p('10:00'), p('10:00'))).toEqual(p('10:00'));
+  });
+});

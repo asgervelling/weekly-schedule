@@ -4,5 +4,5 @@ import { randomWeek, randomDay } from '@/mockdata/event_data';
 
 
 export default function Home() {
-  return <Day n={48} events={randomDay()} />;
+  return <Day events={randomDay()} />;
 }

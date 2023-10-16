@@ -67,6 +67,20 @@ export const tsGt = (t1: TimeStamp, t2: TimeStamp): boolean => {
   return tsLt(t2, t1);
 }
 
+/**
+ * Return the minimum of two TimeStamps
+ */
+export const minTs = (t1: TimeStamp, t2: TimeStamp): TimeStamp => {
+  return tsLt(t1, t2) ? t1 : t2;
+};
+
+/**
+ * Return the maximum of two TimeStamps
+ */
+export const maxTs = (t1: TimeStamp, t2: TimeStamp): TimeStamp => {
+  return tsLt(t1, t2) ? t2 : t1;
+}
+
 
 /**
  * Get the difference between two TimeStamps
