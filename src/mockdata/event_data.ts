@@ -1,7 +1,5 @@
-import Day from "@/components/Day";
 import { CalendarEvent } from "../../types";
-import Week from '../components/Week';
-import { addTimestamps, indexToTimestamp, timestampToIndex } from "@/calendar/time_formats";
+import { addTimestamps } from "@/calendar/time_formats";
 
 
 export const randomWeek = () => {
@@ -15,19 +13,22 @@ const randomDay = (): CalendarEvent[] => {
   const startTimes = ['09:00', '10:30', '13:00', '15:30', '17:00', '18:30'];
   const endTimes = ['10:00', '11:30', '14:00', '16:30', '18:00', '19:30'];
   
-  const hours = Math.floor(Math.random() * 5) - 2;
-  const minutes = Math.floor(Math.random() * 60);
-  const ts = `${hours}:${minutes}`
-  console.log(ts);
-
+  const ts = randomOffset();
   const events: CalendarEvent[] = randomEvents(titles, colors, startTimes, endTimes);
-  return events.map((event) => (
+  return events.map((e) => (
     {
-      ...event,
-      start: addTimestamps(ts, event.start),
-      end: addTimestamps(ts, event.end),
+      ...e,
+      start: addTimestamps(ts, e.start),
+      end: addTimestamps(ts, e.end),
     }
   ));
+};
+
+
+const randomOffset = (): string => {
+  const hh = Math.floor(Math.random() * 5) - 2;
+  const mm = Math.floor(Math.random() * 60);
+  return `${hh}:${mm}`
 };
 
 

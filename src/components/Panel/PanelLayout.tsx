@@ -19,7 +19,7 @@ const PanelLayout: React.FC<PanelLayoutProps> = ({ children, n, event }) => {
   return (
     <div
       style={gridStyle}
-      className='h-full flex-row text-xs lg:text-base text-md
+      className='h-[37px] flex-row text-xs lg:text-base text-md
                   even:bg-fill odd:bg-fillLowContrast'
     >
       {children}
