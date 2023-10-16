@@ -16,15 +16,15 @@ export default function Home() {
     {
       title: 'Event 1',
       colorHex: '#127f93',
-      start: parseTs('05:00'),
-      end: parseTs('05:17'),
+      start: parseTs('05:09'),
+      end: parseTs('06:17'),
     },
     {
       title: 'Event 2',
       colorHex: '#929899',
-      start: parseTs('15:51'),
-      end: parseTs('23:08'),
+      start: parseTs('15:08'),
+      end: parseTs('22:51'),
     }
   ];
-  return <Day events={events} />;
+  return <Week days={randomWeek()} />;
 }

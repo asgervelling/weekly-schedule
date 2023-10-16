@@ -1,5 +1,5 @@
 import { CalendarEvent } from "../../types";
-import { panelHeight, panelTop } from "./panels";
+import { panelHeight } from "./panels";
 
 
 const e0: CalendarEvent = {

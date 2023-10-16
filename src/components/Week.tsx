@@ -4,7 +4,6 @@ import { CalendarEvent } from '../../types';
 
 
 type WeekProps = {
-  n: number;
   days: CalendarEvent[][];
 };
 
@@ -14,9 +13,9 @@ type WeekProps = {
  * 
  * @param days - Seven lists of events.
  */
-const Week: React.FC<WeekProps> = ({ n, days }) => {
+const Week: React.FC<WeekProps> = ({ days }) => {
   return (
-    <div className="flex items-center justify-center h-[480px] overflow-y-auto text-primary">
+    <div className="flex items-center justify-center h-[480px] overflow-y-auto">
       {days.map((day, i) => (
         <Day key={i} events={day} />
       ))}
