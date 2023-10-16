@@ -2,6 +2,7 @@ import { timestampToIndex } from '@/calendar/time_formats';
 import React from 'react';
 import { CalendarEvent } from '../../../types';
 import { PanelProps } from './Panel';
+import { panelHeight, panelTop } from '@/calendar/panels';
 
 
 type PanelLayoutProps = PanelProps & {
@@ -10,15 +11,15 @@ type PanelLayoutProps = PanelProps & {
 
 
 const PanelLayout: React.FC<PanelLayoutProps> = ({ event, dayHeight, children }) => {
-  // const gridStyle = {
-  //   gridRowStart: timestampToIndex(event.start, n),
-  //   gridRowEnd: timestampToIndex(event.end, n),
-  // };
+  const gridStyle = {
+    height: `${panelHeight(event, dayHeight)}px`,
+    top: `${panelTop(event, dayHeight)}px`,
+  };
   
   return (
     <div
-      // style={gridStyle}
-      className='h-[37px] flex-row text-xs lg:text-base text-md
+      style={gridStyle}
+      className='text-xs lg:text-base text-md
                   even:bg-fill odd:bg-fillLowContrast'
     >
       {children}

@@ -4,6 +4,7 @@ import {
   tsDiff,
   formatTs,
   parseTs,
+  addTimestamps,
   tsEq,
   tsLt,
   tsLeq,
@@ -43,6 +44,19 @@ describe('tsDiff', () => {
   });
 });
 
+const p = parseTs;
+
+describe('addTimestamps', () => {
+  it('should add two timestamps together', () => {
+    expect(addTimestamps(p('10:00'), p('7:15'))).toEqual(p('17:15'));
+    expect(addTimestamps(p('10:00'), p('-7:15'))).toEqual(p('02:45'));
+    expect(addTimestamps(p('10:00'), p('0:00'))).toEqual(p('10:00'));
+    expect(addTimestamps(p('10:00'), p('0:01'))).toEqual(p('10:01'));
+    expect(addTimestamps(p('10:00'), p('00:59'))).toEqual(p('10:59'));
+    expect(addTimestamps(p('23:59'), p('0:01'))).toEqual(p('24:00'));
+  })
+});
+
 describe('formatTs', () => {
   it('should format a TS as a string', () => {
     expect(formatTs({ h: 0, m: 0 })).toBe('00:00');
@@ -55,13 +69,13 @@ describe('formatTs', () => {
 
 describe('parseTs', () => {
   it('should parse a string as a TS', () => {
-    expect(parseTs('00:00')).toEqual({ h: 0, m: 0 });
-    expect(parseTs('00:30')).toEqual({ h: 0, m: 30 });
-    expect(parseTs('01:17')).toEqual({ h: 1, m: 17 });
-    expect(parseTs('-02:54')).toEqual({ h: -2, m: 54 });
-    expect(parseTs('-2:54')).toEqual({ h: -2, m: 54 });
-    expect(parseTs('-22:54')).toEqual({ h: -22, m: 54 });
-    expect(parseTs('25:00')).toEqual({ h: 25, m: 0 });
+    expect(p('00:00')).toEqual({ h: 0, m: 0 });
+    expect(p('00:30')).toEqual({ h: 0, m: 30 });
+    expect(p('01:17')).toEqual({ h: 1, m: 17 });
+    expect(p('-02:54')).toEqual({ h: -2, m: 54 });
+    expect(p('-2:54')).toEqual({ h: -2, m: 54 });
+    expect(p('-22:54')).toEqual({ h: -22, m: 54 });
+    expect(p('25:00')).toEqual({ h: 25, m: 0 });
     // Raise error on invalid input:
     expect(() => parseTs('')).toThrow();
   });

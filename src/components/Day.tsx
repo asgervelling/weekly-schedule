@@ -20,11 +20,11 @@ type DayProps = {
 const Day: React.FC<DayProps> = ({ n, events }) => {
   const h = 960;
   return (
-    <>
+    <div className='flex flex-col w-40'>
       {padEvents(n, events).map((e, i) => (
         <Panel key={i} event={e} dayHeight={h} />
       ))}
-    </>
+    </div>
   );
 };
   

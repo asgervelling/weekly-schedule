@@ -1,5 +1,6 @@
-import { CalendarEvent } from "../../types";
-import { addTimestamps } from "@/calendar/time_formats";
+import { addTimestamps, parseTs } from "@/calendar/timestamps";
+import { CalendarEvent, TimeStamp } from "../../types";
+
 
 
 export const randomWeek = () => {
@@ -25,10 +26,10 @@ export const randomDay = (): CalendarEvent[] => {
 };
 
 
-const randomOffset = (): string => {
-  const hh = Math.floor(Math.random() * 5) - 2;
-  const mm = Math.floor(Math.random() * 60);
-  return `${hh}:${mm}`
+const randomOffset = (): TimeStamp => {
+  const h = Math.floor(Math.random() * 5) - 2;
+  const m = Math.floor(Math.random() * 60);
+  return { h: h, m: m };
 };
 
 
@@ -50,8 +51,8 @@ const randomEvents = (
   const event: CalendarEvent = {
     title: titles[Math.floor(Math.random() * titles.length)],
     colorHex: colors[Math.floor(Math.random() * colors.length)],
-    start: startTimes[0],
-    end: endTimes[0],
+    start: parseTs(startTimes[0]),
+    end: parseTs(endTimes[0]),
   };
 
   return [event, ...randomEvents(titles.slice(1), colors.slice(1),

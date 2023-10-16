@@ -1,7 +1,6 @@
 import {
   timestampToIndex,
   indexToTimestamp,
-  addTimestamps,
 } from "./time_formats";
 
 
@@ -29,15 +28,4 @@ describe('indexToTimestamp', () => {
     expect(indexToTimestamp(1, 480)).toBe('00:03');
     expect(indexToTimestamp(241, 480)).toBe('12:03');
   });
-});
-
-describe('addTimestamps', () => {
-  it('should add two timestamps together', () => {
-    expect(addTimestamps('10:00', '7:15')).toBe('17:15');
-    expect(addTimestamps('10:00', '-7:15')).toBe('02:45');
-    expect(addTimestamps('10:00', '0:00')).toBe('10:00');
-    expect(addTimestamps('10:00', '0:01')).toBe('10:01');
-    expect(addTimestamps('10:00', '00:59')).toBe('10:59');
-    expect(addTimestamps('23:59', '0:01')).toBe('24:00');
-  })
 });
