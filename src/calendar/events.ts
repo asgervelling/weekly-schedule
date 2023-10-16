@@ -1,6 +1,5 @@
-import { match } from 'assert';
 import { CalendarEvent, TimeStamp } from '../../types';
-import { minutesToTs, tsToMinutes, addTimestamps, parseTs, tsLt, minTs, tsDiff, formatTs, tsLeq, tsGeq } from './timestamps';
+import { minutesToTs, tsToMinutes, addTimestamps, parseTs, tsLt, minTs, tsDiff, formatTs, tsLeq, tsGeq, tsGt } from './timestamps';
 
 
 /**
@@ -23,17 +22,21 @@ export const insertEvent = (e: CalendarEvent, events: CalendarEvent[]): Calendar
     return [e];
   }
   const [x, ...xs] = events;
-  if (tsGeq(x.start, e.end)) {
+  if (tsLt(e.end, x.start)) {
     // e is before x, so e is inserted first
     return [e, x, ...xs];
   }
+  if (tsGeq(e.start, x.end)) {
+    // e is after x, so x is inserted first
+    return [x, ...insertEvent(e, xs)];
+  }
 
   if (tsLt(x.start, e.start) && tsLt(e.end, x.end)) {
-    // e is contained in x and not inserted
+    // x contains e. e is not inserted
     return [x, ...xs];
   }
   if (tsGeq(x.start, e.start) && tsGeq(e.end, x.end)) {
-    // x is contained in e and overwritten
+    // e contains x. x is overwritten
     return [e, ...xs];
   }
   
@@ -47,7 +50,10 @@ export const insertEvent = (e: CalendarEvent, events: CalendarEvent[]): Calendar
     const newX = { ...x, end: e.start };
     return [newX, ...insertEvent(e, xs)]
   }
-  throw new Error('Case not handled');
+  
+  
+  console.log('Warning: Case not handled');
+  return [];
 };
 
 
