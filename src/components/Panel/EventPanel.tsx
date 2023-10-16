@@ -9,7 +9,7 @@ import { formatTs } from '@/calendar/timestamps';
  */
 const EventPanel: React.FC<PanelProps> = ({ event, dayHeight }) => {
   return (
-    <PanelLayout event={event} dayHeight={dayHeight} >
+    <PanelLayout event={event} dayHeight={dayHeight}>
       <p style={{backgroundColor: event.colorHex}} className='h-full text-primary text-xs p-1'>
         <span className='text-muted'>{formatTs(event.start)}:</span> {event.title}
       </p>

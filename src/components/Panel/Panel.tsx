@@ -16,16 +16,17 @@ export type PanelProps = {
 
 /**
  * A panel in a day of the calendar.
- * The i'th row in a Day divided into n sections
- * of 24/n hours each.
+ * Its height corresponds to the duration of the event.
+ * @param event - The event to display.
+ * @param dayHeight - The height of the Day component.
  */
 const Panel: React.FC<PanelProps> = ({ event, dayHeight }) => {
   return pipe(
     event,
     O.fromPredicate(isEmptyEvent),
     O.match(
-      () => <EmptyPanel event={event} dayHeight={dayHeight} />,
-      () => <EventPanel event={event} dayHeight={dayHeight} />
+      () => <EventPanel event={event} dayHeight={dayHeight} />,
+      () => <EmptyPanel event={event} dayHeight={dayHeight} />
     )
   );
 }

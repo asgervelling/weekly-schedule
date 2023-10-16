@@ -1,6 +1,6 @@
 import { indexToTimestamp } from './time_formats';
 import { CalendarEvent, TimeStamp } from '../../types';
-import { minutesToTs, tsToMinutes, addTimestamps, parseTs, tsLt } from './timestamps';
+import { minutesToTs, tsToMinutes, addTimestamps, parseTs, tsLt, minTs, tsDiff } from './timestamps';
 
 
 /**
@@ -33,7 +33,7 @@ export const padEvents = (events: CalendarEvent[]): CalendarEvent[] => {
     if (tsToMinutes(start) >= tsToMinutes(end)) {
       return;
     }
-    const delta = minutesToTs(30);
+    const delta = minTs(minutesToTs(30), tsDiff(start, end));
     const t1 = addTimestamps(start, delta);
     paddedEvents.push(createEmptyEvent(start, t1));
     addEmptyEvents(t1, end);

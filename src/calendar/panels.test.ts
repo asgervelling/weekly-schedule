@@ -35,11 +35,3 @@ describe('panelHeight', () => {
     expect(panelHeight(e2, 1473)).toBe(71);
   });
 });
-
-describe('panelTop', () => {
-  it('should get the top position of a panel in pixels', () => {
-    expect(panelTop(e0, 100)).toBe(0);
-    expect(panelTop(e2, 9438)).toBe(5486);
-    expect(panelTop(e3, 1473)).toBe(1410);
-  });
-});
