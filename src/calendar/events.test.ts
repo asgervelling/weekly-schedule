@@ -1,5 +1,5 @@
 import { Day, ScheduleEvent } from "../../types";
-import { insertEvent, padEvents } from "./events";
+import { insertDay, insertEvent, padEvents } from "./events";
 import { parseTs } from "./timestamps";
 import { emptyEvent } from "./events";
 
@@ -12,6 +12,16 @@ const createEvent = (title: string, start: string, end: string): ScheduleEvent =
     end: parseTs(end),
   };
 };
+
+describe("insertDay", () => {
+  it("should insert a day into an empty week", () => {
+    const day = [createEvent("A", "00:00", "01:00")];
+    const week = [[], [], [], [], [], [], []];
+    const expectedWeek = [[], day, [], [], [], [], []];
+    expect(insertDay(day, 1, week)).toEqual(expectedWeek);
+  });
+});
+
 
 describe("insertEvent", () => {
   it("Case: array is empty", () => {

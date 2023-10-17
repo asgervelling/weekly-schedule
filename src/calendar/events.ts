@@ -1,5 +1,6 @@
+import { DayOfWeek } from "@/app/enums";
 import { Day, ScheduleEvent, TimeStamp, Week } from "../../types";
-import { minutesToTs, tsToMinutes, addTimestamps, parseTs, tsLt, minTs, tsDiff, tsGeq } from "./timestamps";
+import { minutesToTs, tsToMinutes, addTimestamps, parseTs, tsLt, minTs, tsDiff, tsGeq, tsEq } from "./timestamps";
 
 
 /**
@@ -8,6 +9,25 @@ import { minutesToTs, tsToMinutes, addTimestamps, parseTs, tsLt, minTs, tsDiff, 
  */
 export const emptyEvent = (start: TimeStamp, end: TimeStamp): ScheduleEvent => {
     return { title: "", color: "", start, end };
+};
+
+
+export const createEvent = (
+  title: string,
+  start: string,
+  end: string
+): ScheduleEvent => {
+  const p = parseTs;
+  const endTime = tsEq(p(end), p("00:00")) ? p("23:59") : p(end);
+  if (tsLt(endTime, p(start))) {
+    throw new Error("End time must be after start time");
+  }
+  return {
+    title,
+    color: randomNoteColor(),
+    start: p(start),
+    end: endTime,
+  };
 };
 
 
@@ -33,6 +53,15 @@ export const randomNoteColor = (): string => {
   return `var(${colors[randomIndex]})`;
 };
 
+
+/**
+ * Create a new Week with the given Day inserted.
+ */
+export const insertDay = (day: Day, dayOfWeek: DayOfWeek, week: Week): Week => {
+  const newWeek = [...week];
+  newWeek[dayOfWeek] = day;
+  return newWeek;
+}
 
 /**
  * Insert an event into an array of events,

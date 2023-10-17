@@ -1,23 +1,18 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "@/components/Button";
-import { Day, ScheduleEvent, Week } from "../../types";
+import { emptyWeek, insertDay, insertEvent } from "@/calendar/events";
+import { ScheduleEvent, Week } from "../../types";
 import WeeklySchedule from "@/components/WeeklySchedule";
-import { randomWeek } from "@/mockdata/event_data";
-import { emptyWeek, insertEvent, padEvents } from "@/calendar/events";
 import ScheduleEventForm from "@/components/ScheduleEventForm";
+import { DayOfWeek } from "./enums";
 
 const Home = () => {
   const [week, setWeek] = useState<Week>(emptyWeek());
 
-  const addEvent = (e: ScheduleEvent) => {
-    // Insert an event into an array of events, using an opinionated algorithm.
-    const day: Day = insertEvent(e, week[0]);
-
-    // Insert the day into the week, creating a new Week overwriting the old one.
-    const newWeek: Week = [day, ...week.slice(1)];
-
-    // Update the state with the new week.
+  const addEvent = (e: ScheduleEvent, dayOfWeek: DayOfWeek) => {
+    const day = insertEvent(e, week[0]);
+    const newWeek = insertDay(day, dayOfWeek, week);
     setWeek(newWeek);
   };
 

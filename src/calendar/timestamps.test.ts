@@ -110,6 +110,7 @@ describe("comparison functions", () => {
     expect(tsLt(t2, t1)).toBe(true);
     expect(tsLt(t1, t2)).toBe(false);
     expect(tsLt(t1, t1Copy)).toBe(false);
+    expect(tsLt(p("00:00"), p("23:59"))).toBe(true);
   });
 
   it("should correctly compare TimeStamps for less than or equal", () => {
@@ -136,6 +137,7 @@ describe("minTs", () => {
     expect(minTs(p("10:00"), p("7:15"))).toEqual(p("07:15"));
     expect(minTs(p("10:00"), p("17:15"))).toEqual(p("10:00"));
     expect(minTs(p("10:00"), p("10:00"))).toEqual(p("10:00"));
+    expect(minTs(p("23:59"), p("00:00"))).toEqual(p("00:00"));
   });
 });
 

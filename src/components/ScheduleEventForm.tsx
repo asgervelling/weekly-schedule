@@ -1,27 +1,28 @@
 import { ScheduleEvent } from "../../types";
-import { parseTs } from "@/calendar/timestamps";
+import { maxTs, minTs, parseTs } from "@/calendar/timestamps";
 import React, { useState } from "react";
 import Button from "./Button";
-import { randomNoteColor } from "@/calendar/events";
+import { createEvent, randomNoteColor } from "@/calendar/events";
+import { DayOfWeek, getEnumKeys } from "@/app/enums";
 
 type ScheduleEventFormProps = {
-  onSubmit: (event: ScheduleEvent) => void;
+  onSubmit: (event: ScheduleEvent, dayOfWeek: DayOfWeek) => void;
 };
 
 const ScheduleEventForm = ({ onSubmit }: ScheduleEventFormProps) => {
   const [title, setTitle] = useState("");
-  const [color, setColor] = useState("");
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
+  const [dayOfWeek, setDayOfWeek] = useState(0);
 
   const handleSubmit = () => {
-    const event: ScheduleEvent = {
-      title,
-      color: randomNoteColor(),
-      start: parseTs(start),
-      end: parseTs(end),
-    };
-    onSubmit(event);
+    const event = createEvent(title, start, end);
+    onSubmit(event, dayOfWeek);
+  };
+
+  const printRet = (ret: any) => {
+    console.log(ret);
+    return ret;
   };
 
   return (
@@ -53,6 +54,18 @@ const ScheduleEventForm = ({ onSubmit }: ScheduleEventFormProps) => {
           className="border border-gray-300 rounded px-2 py-1"
         />
       </label>
+      <select
+        value={dayOfWeek}
+        onChange={(e) => {
+          setDayOfWeek(parseInt(printRet(e.target.value)));
+        }}
+      >
+        {getEnumKeys(DayOfWeek).map((key, index) => (
+          <option key={index} value={DayOfWeek[key]}>
+            {key}
+          </option>
+        ))}
+      </select>
       <br />
       <div className="flex flex-row-reverse">
         <Button onClick={handleSubmit}>Submit</Button>
