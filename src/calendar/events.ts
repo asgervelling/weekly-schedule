@@ -1,5 +1,5 @@
-import { CalendarEvent, TimeStamp } from '../../types';
-import { minutesToTs, tsToMinutes, addTimestamps, parseTs, tsLt, minTs, tsDiff, tsGeq } from './timestamps';
+import { CalendarEvent, TimeStamp } from "../../types";
+import { minutesToTs, tsToMinutes, addTimestamps, parseTs, tsLt, minTs, tsDiff, tsGeq } from "./timestamps";
 
 
 /**
@@ -7,12 +7,12 @@ import { minutesToTs, tsToMinutes, addTimestamps, parseTs, tsLt, minTs, tsDiff, 
  * with a CalendarEvent.
  */
 export const createEmptyEvent = (start: TimeStamp, end: TimeStamp): CalendarEvent => {
-    return { title: '', colorHex: '', start, end };
+    return { title: "", colorHex: "", start, end };
 };
 
 
 export const isEmptyEvent = (e: CalendarEvent) => {
-  return e.title === '';
+  return e.title === "";
 };
 
 
@@ -50,12 +50,12 @@ export const insertEvent = (e: CalendarEvent, events: CalendarEvent[]): Calendar
     return [e, newX, ...xs];
   }
   if (tsLt(x.start, e.start) && tsGeq(e.end, x.end)) {
-    // e's start shortens x
+    // e"s start shortens x
     const newX = { ...x, end: e.start };
     return [newX, ...insertEvent(e, xs)]
   }
   
-  console.log('Warning: Case not handled');
+  console.log("Warning: Case not handled");
   return [];
 };
 
@@ -85,7 +85,7 @@ export const padEvents = (events: CalendarEvent[]): CalendarEvent[] => {
     addEmptyEvents(t1, end);
   };
 
-  let currentTs = parseTs('00:00');
+  let currentTs = parseTs("00:00");
   for (const e of events) {
     if (tsLt(currentTs, e.start)) {
       addEmptyEvents(currentTs, e.start);
@@ -93,8 +93,8 @@ export const padEvents = (events: CalendarEvent[]): CalendarEvent[] => {
     paddedEvents.push(e);
     currentTs = e.end;
   }
-  if (tsLt(currentTs, parseTs('23:59'))) {
-    addEmptyEvents(currentTs, parseTs('23:59'));
+  if (tsLt(currentTs, parseTs("23:59"))) {
+    addEmptyEvents(currentTs, parseTs("23:59"));
   }
   return paddedEvents;
 };

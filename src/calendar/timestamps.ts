@@ -108,19 +108,19 @@ export const tsDiff = (t0: TimeStamp, t1: TimeStamp): TimeStamp => {
  * Format a TimeStamp as a string
  */
 export const formatTs = (ts: TimeStamp): string => {
-  const fmt = (n: number) => Math.round(n).toString().padStart(2, '0');
+  const fmt = (n: number) => Math.round(n).toString().padStart(2, "0");
   const h = ts.h < 0
-    ? '-' + fmt(-ts.h)
+    ? "-" + fmt(-ts.h)
     : fmt(ts.h);
   return `${h}:${fmt(ts.m)}`;
 }
 
 
 /**
- * Read a string formatted like 'hh:mm' and create a TimeStamp
+ * Read a string formatted like "hh:mm" and create a TimeStamp
  */
 export const parseTs = (s: string): TimeStamp => {
-  const [h, m] = s.split(':').map((s) => parseInt(s));
+  const [h, m] = s.split(":").map((s) => parseInt(s));
   if (isNaN(h) || isNaN(m)) {
     throw new Error(`Invalid timestamp: ${s}`);
   }

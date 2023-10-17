@@ -1,11 +1,11 @@
-import React from 'react';
-import * as O from 'fp-ts/Option';
-import { pipe } from 'fp-ts/function';
+import React from "react";
+import * as O from "fp-ts/Option";
+import { pipe } from "fp-ts/function";
 
-import { CalendarEvent } from '../../../types';
-import { isEmptyEvent } from '@/calendar/events';
-import EventPanel from './EventPanel';
-import EmptyPanel from './EmptyPanel';
+import { CalendarEvent } from "../../../types";
+import { isEmptyEvent } from "@/calendar/events";
+import EventPanel from "./EventPanel";
+import EmptyPanel from "./EmptyPanel";
 
 
 export type PanelProps = {

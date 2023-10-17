@@ -9,10 +9,10 @@ export const randomWeek = () => {
 
 
 export const randomDay = (): CalendarEvent[] => {
-  const titles = ['Meeting', 'Write report', 'Read book', 'Exercise', 'Lunch', 'Coding session'];
-  const colors = ['#79addc', '#ffc09f', '#adf8b6', '#f9d9a6', '#c7e9b4', '#f4cae4'];
-  const startTimes = ['09:00', '10:30', '13:00', '15:30', '17:00', '18:30'];
-  const endTimes = ['10:00', '11:30', '14:00', '16:30', '18:00', '19:30'];
+  const titles = ["Meeting", "Write report", "Read book", "Exercise", "Lunch", "Coding session"];
+  const colors = ["#79addc", "#ffc09f", "#adf8b6", "#f9d9a6", "#c7e9b4", "#f4cae4"];
+  const startTimes = ["09:00", "10:30", "13:00", "15:30", "17:00", "18:30"];
+  const endTimes = ["10:00", "11:30", "14:00", "16:30", "18:00", "19:30"];
   
   const ts = randomOffset();
   const events: CalendarEvent[] = randomEvents(titles, colors, startTimes, endTimes);
@@ -42,7 +42,7 @@ const randomEvents = (
   if (titles.length !== colors.length ||
       titles.length !== startTimes.length ||
       titles.length !== endTimes.length) {
-    throw new Error('Lengths of arrays are not equal');
+    throw new Error("Lengths of arrays are not equal");
   }
   if (titles.length === 0) {
     return [];

@@ -1,6 +1,6 @@
-import React from 'react';
-import { PanelProps } from './Panel';
-import PanelLayout from './PanelLayout';
+import React from "react";
+import { PanelProps } from "./Panel";
+import PanelContainer from "./PanelContainer";
 
 
 /**
@@ -9,7 +9,7 @@ import PanelLayout from './PanelLayout';
  */
 const EmptyPanel: React.FC<PanelProps> = ({ event, dayHeight }) => {
   return (
-    <PanelLayout event={event} dayHeight={dayHeight} />
+    <PanelContainer event={event} dayHeight={dayHeight} />
   );
 };
 

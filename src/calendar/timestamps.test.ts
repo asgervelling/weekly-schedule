@@ -13,11 +13,11 @@ import {
   tsGt,
   minTs,
   maxTs,
-} from './timestamps';
+} from "./timestamps";
 
 
-describe('tsToMinutes', () => {
-  it('should convert a TimeStamp (TS) to minutes', () => {
+describe("tsToMinutes", () => {
+  it("should convert a TimeStamp (TS) to minutes", () => {
     expect(tsToMinutes({ h: 0, m: 0 })).toBe(0);
     expect(tsToMinutes({ h: 0, m: 30 })).toBe(30);
     expect(tsToMinutes({ h: 1, m: 17 })).toBe(77);
@@ -26,8 +26,8 @@ describe('tsToMinutes', () => {
   });
 })
 
-describe('minutesToTs', () => {
-  it('should convert a number of minutes to a TS', () => {
+describe("minutesToTs", () => {
+  it("should convert a number of minutes to a TS", () => {
     expect(minutesToTs(0)).toEqual({ h: 0, m: 0 });
     expect(minutesToTs(30)).toEqual({ h: 0, m: 30 });
     expect(minutesToTs(77)).toEqual({ h: 1, m: 17 });
@@ -35,8 +35,8 @@ describe('minutesToTs', () => {
   });
 });
 
-describe('tsDiff', () => {
-  it('should get the difference between two TSs', () => {
+describe("tsDiff", () => {
+  it("should get the difference between two TSs", () => {
     expect(tsDiff({ h: 0, m: 0 },
                   { h: 0, m: 0 })).toEqual({ h: 0, m: 0 });
     expect(tsDiff({ h: 0, m: 0 },
@@ -49,101 +49,101 @@ describe('tsDiff', () => {
 
 const p = parseTs;
 
-describe('addTimestamps', () => {
-  it('should add two timestamps together', () => {
-    expect(addTimestamps(p('10:00'), p('7:15'))).toEqual(p('17:15'));
-    expect(addTimestamps(p('10:00'), p('-7:15'))).toEqual(p('02:45'));
-    expect(addTimestamps(p('10:00'), p('0:00'))).toEqual(p('10:00'));
-    expect(addTimestamps(p('10:00'), p('0:01'))).toEqual(p('10:01'));
-    expect(addTimestamps(p('10:00'), p('00:59'))).toEqual(p('10:59'));
-    expect(addTimestamps(p('23:59'), p('0:01'))).toEqual(p('24:00'));
+describe("addTimestamps", () => {
+  it("should add two timestamps together", () => {
+    expect(addTimestamps(p("10:00"), p("7:15"))).toEqual(p("17:15"));
+    expect(addTimestamps(p("10:00"), p("-7:15"))).toEqual(p("02:45"));
+    expect(addTimestamps(p("10:00"), p("0:00"))).toEqual(p("10:00"));
+    expect(addTimestamps(p("10:00"), p("0:01"))).toEqual(p("10:01"));
+    expect(addTimestamps(p("10:00"), p("00:59"))).toEqual(p("10:59"));
+    expect(addTimestamps(p("23:59"), p("0:01"))).toEqual(p("24:00"));
   })
 });
 
-describe('subTimestamps', () => {
-  it('should subtract two timestamps', () => {
-    expect(subTimestamps(p('10:00'), p('7:15'))).toEqual(p('02:45'));
-    expect(subTimestamps(p('10:00'), p('-7:15'))).toEqual(p('17:15'));
-    expect(subTimestamps(p('10:00'), p('0:00'))).toEqual(p('10:00'));
-    expect(subTimestamps(p('10:00'), p('0:01'))).toEqual(p('09:59'));
-    expect(subTimestamps(p('10:00'), p('00:59'))).toEqual(p('09:01'));
-    expect(subTimestamps(p('23:59'), p('0:01'))).toEqual(p('23:58'));
+describe("subTimestamps", () => {
+  it("should subtract two timestamps", () => {
+    expect(subTimestamps(p("10:00"), p("7:15"))).toEqual(p("02:45"));
+    expect(subTimestamps(p("10:00"), p("-7:15"))).toEqual(p("17:15"));
+    expect(subTimestamps(p("10:00"), p("0:00"))).toEqual(p("10:00"));
+    expect(subTimestamps(p("10:00"), p("0:01"))).toEqual(p("09:59"));
+    expect(subTimestamps(p("10:00"), p("00:59"))).toEqual(p("09:01"));
+    expect(subTimestamps(p("23:59"), p("0:01"))).toEqual(p("23:58"));
   });
 });
 
-describe('formatTs', () => {
-  it('should format a TS as a string', () => {
-    expect(formatTs({ h: 0, m: 0 })).toBe('00:00');
-    expect(formatTs({ h: 0, m: 30 })).toBe('00:30');
-    expect(formatTs({ h: 1, m: 17 })).toBe('01:17');
-    expect(formatTs({ h: -22, m: 54 })).toBe('-22:54');
-    expect(formatTs({ h: -2, m: 54 })).toBe('-02:54');
+describe("formatTs", () => {
+  it("should format a TS as a string", () => {
+    expect(formatTs({ h: 0, m: 0 })).toBe("00:00");
+    expect(formatTs({ h: 0, m: 30 })).toBe("00:30");
+    expect(formatTs({ h: 1, m: 17 })).toBe("01:17");
+    expect(formatTs({ h: -22, m: 54 })).toBe("-22:54");
+    expect(formatTs({ h: -2, m: 54 })).toBe("-02:54");
   });
 });
 
-describe('parseTs', () => {
-  it('should parse a string as a TS', () => {
-    expect(p('00:00')).toEqual({ h: 0, m: 0 });
-    expect(p('00:30')).toEqual({ h: 0, m: 30 });
-    expect(p('01:17')).toEqual({ h: 1, m: 17 });
-    expect(p('-02:54')).toEqual({ h: -2, m: 54 });
-    expect(p('-2:54')).toEqual({ h: -2, m: 54 });
-    expect(p('-22:54')).toEqual({ h: -22, m: 54 });
-    expect(p('25:00')).toEqual({ h: 25, m: 0 });
+describe("parseTs", () => {
+  it("should parse a string as a TS", () => {
+    expect(p("00:00")).toEqual({ h: 0, m: 0 });
+    expect(p("00:30")).toEqual({ h: 0, m: 30 });
+    expect(p("01:17")).toEqual({ h: 1, m: 17 });
+    expect(p("-02:54")).toEqual({ h: -2, m: 54 });
+    expect(p("-2:54")).toEqual({ h: -2, m: 54 });
+    expect(p("-22:54")).toEqual({ h: -22, m: 54 });
+    expect(p("25:00")).toEqual({ h: 25, m: 0 });
     // Raise error on invalid input:
-    expect(() => parseTs('')).toThrow();
+    expect(() => parseTs("")).toThrow();
   });
 });
 
-describe('comparison functions', () => {
+describe("comparison functions", () => {
   const t1 = { h: 10, m: 30 };
   const t1Copy = { h: 10, m: 30 };
   const t2 = { h: 2, m: 15 };
 
-  it('should correctly compare TimeStamps for equality', () => {
+  it("should correctly compare TimeStamps for equality", () => {
     expect(tsEq(t1, t1)).toBe(true);
     expect(tsEq(t1, t1Copy)).toBe(true);
     expect(tsEq(t1, t2)).toBe(false);
   });
 
-  it('should correctly compare TimeStamps for less than', () => {
+  it("should correctly compare TimeStamps for less than", () => {
     expect(tsLt(t2, t1)).toBe(true);
     expect(tsLt(t1, t2)).toBe(false);
     expect(tsLt(t1, t1Copy)).toBe(false);
   });
 
-  it('should correctly compare TimeStamps for less than or equal', () => {
+  it("should correctly compare TimeStamps for less than or equal", () => {
     expect(tsLeq(t1, t1Copy)).toBe(true);
     expect(tsLeq(t1, t2)).toBe(false);
     expect(tsLeq(t2, t1)).toBe(true);
   });
 
-  it('should correctly compare TimeStamps for greater than or equal', () => {
+  it("should correctly compare TimeStamps for greater than or equal", () => {
     expect(tsGeq(t1, t1Copy)).toBe(true);
     expect(tsGeq(t1, t2)).toBe(true);
     expect(tsGeq(t2, t1)).toBe(false);
   });
 
-  it('should correctly compare TimeStamps for greater than', () => {
+  it("should correctly compare TimeStamps for greater than", () => {
     expect(tsGt(t1, t1)).toBe(false);
     expect(tsGt(t1, t2)).toBe(true);
     expect(tsGt(t2, t1)).toBe(false);
   });
 });
 
-describe('minTs', () => {
-  it('should return the minimum of two TimeStamps', () => {
-    expect(minTs(p('10:00'), p('7:15'))).toEqual(p('07:15'));
-    expect(minTs(p('10:00'), p('17:15'))).toEqual(p('10:00'));
-    expect(minTs(p('10:00'), p('10:00'))).toEqual(p('10:00'));
+describe("minTs", () => {
+  it("should return the minimum of two TimeStamps", () => {
+    expect(minTs(p("10:00"), p("7:15"))).toEqual(p("07:15"));
+    expect(minTs(p("10:00"), p("17:15"))).toEqual(p("10:00"));
+    expect(minTs(p("10:00"), p("10:00"))).toEqual(p("10:00"));
   });
 });
 
-describe('maxTs', () => {
-  it('should return the maximum of two TimeStamps', () => {
+describe("maxTs", () => {
+  it("should return the maximum of two TimeStamps", () => {
     // Test maxTs
-    expect(maxTs(p('10:00'), p('7:15'))).toEqual(p('10:00'));
-    expect(maxTs(p('10:00'), p('17:15'))).toEqual(p('17:15'));
-    expect(maxTs(p('10:00'), p('10:00'))).toEqual(p('10:00'));
+    expect(maxTs(p("10:00"), p("7:15"))).toEqual(p("10:00"));
+    expect(maxTs(p("10:00"), p("17:15"))).toEqual(p("17:15"));
+    expect(maxTs(p("10:00"), p("10:00"))).toEqual(p("10:00"));
   });
 });

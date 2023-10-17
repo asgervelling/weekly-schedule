@@ -1,7 +1,7 @@
-import React from 'react';
-import { CalendarEvent } from '../../types';
-import { padEvents } from '@/calendar/events';
-import Panel from './Panel';
+import React from "react";
+import { CalendarEvent } from "../../types";
+import { padEvents } from "@/calendar/events";
+import Panel from "./Panel";
 
 
 type DayProps = {
@@ -15,7 +15,7 @@ type DayProps = {
 const Day: React.FC<DayProps> = ({ events }) => {
   const h = 960;
   return (
-    <div className='flex-grow'>
+    <div className="flex-grow">
       {padEvents(events).map((e, i) => (
         <Panel key={i} event={e} dayHeight={h} />
       ))}

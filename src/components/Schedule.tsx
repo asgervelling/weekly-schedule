@@ -1,33 +1,25 @@
-'use client';
-import React, { useState, useEffect, Suspense } from "react";
-import Week from "@/components/Week";
-import WeekFallback from "./WeekFallback";
-import Button from "@/components/Button";
-import { randomWeek } from "@/mockdata/event_data";
+import React from "react";
 import { CalendarEvent } from "../../types";
+import Week from "./Week";
+import WeekFallback from "./Week/WeekFallback";
 
-const Schedule: React.FC = () => {
-  const [weekData, setWeekData] = useState<CalendarEvent[][] | null>(null);
 
-  useEffect(() => {
-    updateWeekData();
-  }, []);
+type ScheduleProps = {
+  days: CalendarEvent[][] | null;
+};
 
-  const updateWeekData = () => {
-    const data = randomWeek();
-    setWeekData(data);
-  };
 
+const Schedule: React.FC<ScheduleProps> = ({ days }) => {
   return (
-    <>
-      <Button onClick={updateWeekData}>
-        Click me!
-      </Button>
-      {weekData !== null
-        ? <Week days={weekData} />
+    <div className="w-full h-full">
+      <div className="">
+
+      </div>
+      {days !== null
+        ? <Week days={days} />
         : <WeekFallback />}
-    </>
+    </div>
   );
-}
+};
 
 export default Schedule;
