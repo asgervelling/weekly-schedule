@@ -11,14 +11,13 @@ const Home = () => {
   const [week, setWeek] = useState<Week>(emptyWeek());
 
   const addEvent = (e: ScheduleEvent, dayOfWeek: DayOfWeek) => {
-    const day = insertEvent(e, week[0]);
+    const day = insertEvent(e, week[dayOfWeek]);
     const newWeek = insertDay(day, dayOfWeek, week);
     setWeek(newWeek);
   };
 
   return (
     <>
-      {/* Layout: Three columns */}
       <div className="flex h-full gap-16">
         <div className="flex flex-col items-end justify-start w-1/5">
           <ScheduleEventForm onSubmit={addEvent} />
