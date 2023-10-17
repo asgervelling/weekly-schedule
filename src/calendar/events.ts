@@ -24,6 +24,16 @@ export const isEmptyEvent = (e: ScheduleEvent) => {
 };
 
 
+export const randomNoteColor = (): string => {
+  const colors = [];
+  for (let i = 1; i <= 4; i++) {
+    colors.push(`--color-note-${i}`);
+  }
+  const randomIndex = Math.floor(Math.random() * colors.length);
+  return `var(${colors[randomIndex]})`;
+};
+
+
 /**
  * Insert an event into an array of events,
  * using an opinionated algorithm.

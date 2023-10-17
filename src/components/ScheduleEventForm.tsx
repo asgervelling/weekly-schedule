@@ -1,7 +1,8 @@
+import { ScheduleEvent } from "../../types";
 import { parseTs } from "@/calendar/timestamps";
 import React, { useState } from "react";
 import Button from "./Button";
-import { ScheduleEvent } from "../../types";
+import { randomNoteColor } from "@/calendar/events";
 
 type ScheduleEventFormProps = {
   onSubmit: (event: ScheduleEvent) => void;
@@ -16,7 +17,7 @@ const ScheduleEventForm = ({ onSubmit }: ScheduleEventFormProps) => {
   const handleSubmit = () => {
     const event: ScheduleEvent = {
       title,
-      color,
+      color: randomNoteColor(),
       start: parseTs(start),
       end: parseTs(end),
     };
@@ -31,15 +32,6 @@ const ScheduleEventForm = ({ onSubmit }: ScheduleEventFormProps) => {
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="border border-gray-300 rounded px-2 py-1"
-        />
-      </label>
-      <label className="block">
-        Color:
-        <input
-          type="text"
-          value={color}
-          onChange={(e) => setColor(e.target.value)}
           className="border border-gray-300 rounded px-2 py-1"
         />
       </label>

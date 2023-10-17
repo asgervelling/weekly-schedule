@@ -3,13 +3,6 @@ export type TimeStamp = {
   m: number;
 };
 
-export type ScheduleEvent = {
-  title: string;
-  color: string;
-  start: TimeStamp;
-  end: TimeStamp;
-};
-
 export enum DayOfWeek {
   Monday = 0,
   Tuesday = 1,
@@ -19,6 +12,13 @@ export enum DayOfWeek {
   Saturday = 5,
   Sunday = 6,
 }
+
+export type ScheduleEvent = {
+  title: string;
+  color: string;
+  start: TimeStamp;
+  end: TimeStamp;
+};
 
 export type Day = CalendarEvent[];
 export type Week = Day[];

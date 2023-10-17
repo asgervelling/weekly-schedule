@@ -14,6 +14,7 @@ const config: Config = {
         note1: "var(--color-note-1)",
         note2: "var(--color-note-2)",
         note3: "var(--color-note-3)",
+        note4: "var(--color-note-4)",
       },
       textColor: {
         primary: "var(--color-text-primary)",
