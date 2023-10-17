@@ -11,13 +11,13 @@ type PanelLayoutProps = PanelProps & {
 const PanelLayout: React.FC<PanelLayoutProps> = ({ event, dayHeight, children }) => {
   const gridStyle = {
     height: `${panelHeight(event, dayHeight)}px`,
+    // width: '20px',
   };
   
   return (
     <div
       style={gridStyle}
-      className='text-xs lg:text-base text-md
-                 even:bg-fill odd:bg-fillLowContrast'
+      className='text-xs lg:text-base text-md even:bg-fill odd:bg-fillLowContrast'
     >
       {children}
     </div>

@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`bg-fill ${inter.className}`}>
-        <div className='w-[900px]'>
+        <div className=''>
         {children}
         </div>
       </body>
