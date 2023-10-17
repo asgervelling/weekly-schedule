@@ -1,5 +1,5 @@
 import React from "react";
-import { ScheduleEvent } from "../../types";
+import { Day } from "../../types";
 import { padEvents } from "@/calendar/events";
 import Panel from "./Panel";
 

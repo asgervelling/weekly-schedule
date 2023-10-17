@@ -1,6 +1,6 @@
 import React from "react";
 import DailySchedule from "./DailySchedule";
-import { ScheduleEvent } from "../../types";
+import { Week } from "../../types";
 
 type WeeklyScheduleProps = {
   week: Week | null;

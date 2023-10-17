@@ -1,4 +1,4 @@
-import { ScheduleEvent } from "../../types";
+import { Day, ScheduleEvent } from "../../types";
 import { insertEvent, padEvents } from "./events";
 import { parseTs } from "./timestamps";
 import { createEmptyEvent } from "./events";

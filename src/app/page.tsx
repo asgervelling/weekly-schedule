@@ -1,13 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Button from "@/components/Button";
-import { ScheduleEvent, Week } from "../../types";
-import { addTimestamps, parseTs } from "@/calendar/timestamps";
+import { Week } from "../../types";
 import WeeklySchedule from "@/components/WeeklySchedule";
-import { randomOffset, randomWeek } from "@/mockdata/event_data";
-import { insertEvent } from "@/calendar/events";
+import { randomWeek } from "@/mockdata/event_data";
 
-export default function Home() {
+const Home = () => {
   const [week, setWeek] = useState<Week | null>(null);
 
   useEffect(() => {
@@ -34,4 +32,6 @@ export default function Home() {
       </div>
     </>
   );
-}
+};
+
+export default Home;

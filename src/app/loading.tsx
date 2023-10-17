@@ -1,6 +1,8 @@
 import React from "react";
 
-export default function Loading() {
+const Loading = () => {
   // You can add any UI inside Loading, including a Skeleton.
   return <div>Loading...</div>;
-}
+};
+
+export default Loading;
