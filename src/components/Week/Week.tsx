@@ -1,7 +1,7 @@
-import React from "react";
-import Day from "../Day";
-import { CalendarEvent } from "../../../types";
-import WeekContainer from "./WeekContainer";
+import React from 'react';
+import Day from '../Day';
+import { CalendarEvent } from '../../../types';
+import WeekContainer from './WeekContainer';
 
 
 type WeekProps = {

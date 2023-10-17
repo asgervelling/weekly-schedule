@@ -1,3 +1,4 @@
+import FlexCol from "@/components/FlexCol"
 import "./globals.css"
 import { Inter } from "next/font/google"
 
@@ -14,11 +15,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`bg-fill ${inter.className}`}>
-        <div className="flex flex-col justify-center w-full h-screen">
+        <FlexCol className="justify-center">
           <div className="w-full h-2/3">
             {children}
           </div>
-        </div>
+        </FlexCol>
       </body>
     </html>
   )
