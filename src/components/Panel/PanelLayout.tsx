@@ -11,7 +11,6 @@ type PanelLayoutProps = PanelProps & {
 const PanelLayout: React.FC<PanelLayoutProps> = ({ event, dayHeight, children }) => {
   const gridStyle = {
     height: `${panelHeight(event, dayHeight)}px`,
-    // width: '20px',
   };
   
   return (

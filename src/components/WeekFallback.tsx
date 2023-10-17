@@ -8,8 +8,8 @@ import React from 'react';
  */
 const WeekFallback: React.FC = () => {
   return (
-    <div className="flex items-center justify-center h-[480px] overflow-y-auto">
-      <div className='h-full w-full bg-red-500'>YES</div>
+    <div className="flex items-center justify-center w-full h-full overflow-y-auto border border-black rounded">
+      Loading...
     </div>
   );
 };
