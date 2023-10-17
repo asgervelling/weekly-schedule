@@ -1,7 +1,7 @@
 import { Day, ScheduleEvent } from "../../types";
 import { insertEvent, padEvents } from "./events";
 import { parseTs } from "./timestamps";
-import { createEmptyEvent } from "./events";
+import { emptyEvent } from "./events";
 
 
 const createEvent = (title: string, start: string, end: string): ScheduleEvent => {
@@ -15,78 +15,78 @@ const createEvent = (title: string, start: string, end: string): ScheduleEvent =
 
 describe("insertEvent", () => {
   it("Case: array is empty", () => {
-    const e = createEmptyEvent(parseTs("10:00"), parseTs("11:00"));
+    const e = emptyEvent(parseTs("10:00"), parseTs("11:00"));
     expect(insertEvent(e, [])).toEqual([e]);
   });
   it("Case: e is before x", () => {
-    const e = createEmptyEvent(parseTs("10:00"), parseTs("11:00"));
-    const x = createEmptyEvent(parseTs("12:00"), parseTs("13:00"));
+    const e = emptyEvent(parseTs("10:00"), parseTs("11:00"));
+    const x = emptyEvent(parseTs("12:00"), parseTs("13:00"));
     expect(insertEvent(e, [x])).toEqual([e, x]);
   });
   it("Case: x contains e", () => {
-    const e = createEmptyEvent(parseTs("10:00"), parseTs("11:00"));
-    const x = createEmptyEvent(parseTs("09:00"), parseTs("12:00"));
+    const e = emptyEvent(parseTs("10:00"), parseTs("11:00"));
+    const x = emptyEvent(parseTs("09:00"), parseTs("12:00"));
     expect(insertEvent(e, [x])).toEqual([x]);
   });
   it("Case: e contains x", () => {
-    const e = createEmptyEvent(parseTs("10:00"), parseTs("11:00"));
-    const x = createEmptyEvent(parseTs("10:30"), parseTs("10:45"));
+    const e = emptyEvent(parseTs("10:00"), parseTs("11:00"));
+    const x = emptyEvent(parseTs("10:30"), parseTs("10:45"));
     expect(insertEvent(e, [x])).toEqual([e]);
   });
   it("Case: e pushes the start of x forward", () => {
-    const e = createEmptyEvent(parseTs("10:00"), parseTs("11:00"));
-    const x = createEmptyEvent(parseTs("10:30"), parseTs("12:00"));
+    const e = emptyEvent(parseTs("10:00"), parseTs("11:00"));
+    const x = emptyEvent(parseTs("10:30"), parseTs("12:00"));
     expect(insertEvent(e, [x])).toEqual([
-      createEmptyEvent(parseTs("10:00"), parseTs("11:00")),
-      createEmptyEvent(parseTs("11:00"), parseTs("12:00")),
+      emptyEvent(parseTs("10:00"), parseTs("11:00")),
+      emptyEvent(parseTs("11:00"), parseTs("12:00")),
     ]);
   });
   it("Case: e.start shortens x", () => {
-    const e = createEmptyEvent(parseTs("10:00"), parseTs("11:00"));
-    const x = createEmptyEvent(parseTs("09:00"), parseTs("10:30"));
+    const e = emptyEvent(parseTs("10:00"), parseTs("11:00"));
+    const x = emptyEvent(parseTs("09:00"), parseTs("10:30"));
     expect(insertEvent(e, [x])).toEqual([
-      createEmptyEvent(parseTs("09:00"), parseTs("10:00")),
-      createEmptyEvent(parseTs("10:00"), parseTs("11:00")),
+      emptyEvent(parseTs("09:00"), parseTs("10:00")),
+      emptyEvent(parseTs("10:00"), parseTs("11:00")),
     ]);
   });
   it("Case: e is inserted in the middle", () => {
-    const e = createEmptyEvent(parseTs("10:00"), parseTs("11:00"));
-    const x = createEmptyEvent(parseTs("09:00"), parseTs("10:00"));
-    const y = createEmptyEvent(parseTs("11:00"), parseTs("12:00"));
+    const e = emptyEvent(parseTs("10:00"), parseTs("11:00"));
+    const x = emptyEvent(parseTs("09:00"), parseTs("10:00"));
+    const y = emptyEvent(parseTs("11:00"), parseTs("12:00"));
     expect(insertEvent(e, [x, y])).toEqual([
-      createEmptyEvent(parseTs("09:00"), parseTs("10:00")),
-      createEmptyEvent(parseTs("10:00"), parseTs("11:00")),
-      createEmptyEvent(parseTs("11:00"), parseTs("12:00")),
+      emptyEvent(parseTs("09:00"), parseTs("10:00")),
+      emptyEvent(parseTs("10:00"), parseTs("11:00")),
+      emptyEvent(parseTs("11:00"), parseTs("12:00")),
     ]);
   });
   it("Case: e is inserted in the middle, and x is overwritten", () => {
-    const e = createEmptyEvent(parseTs("10:00"), parseTs("11:00"));
-    const x = createEmptyEvent(parseTs("09:00"), parseTs("11:00"));
-    const y = createEmptyEvent(parseTs("11:00"), parseTs("12:00"));
+    const e = emptyEvent(parseTs("10:00"), parseTs("11:00"));
+    const x = emptyEvent(parseTs("09:00"), parseTs("11:00"));
+    const y = emptyEvent(parseTs("11:00"), parseTs("12:00"));
     expect(insertEvent(e, [x, y])).toEqual([
-      createEmptyEvent(parseTs("09:00"), parseTs("10:00")),
-      createEmptyEvent(parseTs("10:00"), parseTs("11:00")),
-      createEmptyEvent(parseTs("11:00"), parseTs("12:00")),
+      emptyEvent(parseTs("09:00"), parseTs("10:00")),
+      emptyEvent(parseTs("10:00"), parseTs("11:00")),
+      emptyEvent(parseTs("11:00"), parseTs("12:00")),
     ]);
   });
   it("Case: e is inserted in the middle, and y is overwritten", () => {
-    const e = createEmptyEvent(parseTs("10:00"), parseTs("11:00"));
-    const x = createEmptyEvent(parseTs("09:00"), parseTs("10:00"));
-    const y = createEmptyEvent(parseTs("10:30"), parseTs("12:00"));
+    const e = emptyEvent(parseTs("10:00"), parseTs("11:00"));
+    const x = emptyEvent(parseTs("09:00"), parseTs("10:00"));
+    const y = emptyEvent(parseTs("10:30"), parseTs("12:00"));
     expect(insertEvent(e, [x, y])).toEqual([
-      createEmptyEvent(parseTs("09:00"), parseTs("10:00")),
-      createEmptyEvent(parseTs("10:00"), parseTs("11:00")),
-      createEmptyEvent(parseTs("11:00"), parseTs("12:00")),
+      emptyEvent(parseTs("09:00"), parseTs("10:00")),
+      emptyEvent(parseTs("10:00"), parseTs("11:00")),
+      emptyEvent(parseTs("11:00"), parseTs("12:00")),
     ]);
   });
   it("Case: e is inserted in the middle, and x and y are overwritten", () => {
-    const e = createEmptyEvent(parseTs("10:00"), parseTs("11:00"));
-    const x = createEmptyEvent(parseTs("09:00"), parseTs("11:00"));
-    const y = createEmptyEvent(parseTs("10:30"), parseTs("12:00"));
+    const e = emptyEvent(parseTs("10:00"), parseTs("11:00"));
+    const x = emptyEvent(parseTs("09:00"), parseTs("11:00"));
+    const y = emptyEvent(parseTs("10:30"), parseTs("12:00"));
     expect(insertEvent(e, [x, y])).toEqual([
-      createEmptyEvent(parseTs("09:00"), parseTs("10:00")),
-      createEmptyEvent(parseTs("10:00"), parseTs("11:00")),
-      createEmptyEvent(parseTs("11:00"), parseTs("12:00")),
+      emptyEvent(parseTs("09:00"), parseTs("10:00")),
+      emptyEvent(parseTs("10:00"), parseTs("11:00")),
+      emptyEvent(parseTs("11:00"), parseTs("12:00")),
     ]);
   });
   it("Case: e is inserted after x", () => {
@@ -158,6 +158,6 @@ describe("padEvents", () => {
     expect(event_b.color).toEqual("");
 
     const event_c = padEvents(testEvents)[20];
-    expect(event_c).toEqual(createEmptyEvent(parseTs("11:00"), parseTs("11:30")));
+    expect(event_c).toEqual(emptyEvent(parseTs("11:00"), parseTs("11:30")));
   })
 })

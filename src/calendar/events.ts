@@ -1,4 +1,4 @@
-import { Day, ScheduleEvent, TimeStamp } from "../../types";
+import { Day, ScheduleEvent, TimeStamp, Week } from "../../types";
 import { minutesToTs, tsToMinutes, addTimestamps, parseTs, tsLt, minTs, tsDiff, tsGeq } from "./timestamps";
 
 
@@ -6,8 +6,16 @@ import { minutesToTs, tsToMinutes, addTimestamps, parseTs, tsLt, minTs, tsDiff, 
  * An empty event in the calendar, which a user may overwrite
  * with a ScheduleEvent.
  */
-export const createEmptyEvent = (start: TimeStamp, end: TimeStamp): ScheduleEvent => {
+export const emptyEvent = (start: TimeStamp, end: TimeStamp): ScheduleEvent => {
     return { title: "", color: "", start, end };
+};
+
+
+/**
+ * Create a Week with no events.
+ */
+export const emptyWeek = (): Week => {
+  return [[], [], [], [], [], [], []];
 };
 
 
@@ -80,7 +88,7 @@ export const padEvents = (events: Day): Day => {
       delta = minutesToTs(30 - tsToMinutes(start) % 30);
     }
     const t1 = addTimestamps(start, delta);
-    paddedEvents.push(createEmptyEvent(start, t1));
+    paddedEvents.push(emptyEvent(start, t1));
     addEmptyEvents(t1, end);
   };
 
