@@ -11,6 +11,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        stroke: "var(--color-stroke)",
+        strokeLowContrast: "var(--color-stroke-low-contrast)",
         note1: "var(--color-note-1)",
         note2: "var(--color-note-2)",
         note3: "var(--color-note-3)",
@@ -24,10 +26,6 @@ const config: Config = {
       backgroundColor: {
         fill: "var(--color-fill)",
         fillLowContrast: "var(--color-fill-low-contrast)",
-        stroke: "var(--color-stroke)",
-        strokeLowContrast: "var(--color-stroke-low-contrast)",
-      },
-      border: {
         stroke: "var(--color-stroke)",
         strokeLowContrast: "var(--color-stroke-low-contrast)",
       },

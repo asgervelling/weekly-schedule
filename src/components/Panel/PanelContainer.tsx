@@ -22,7 +22,7 @@ const PanelContainer: React.FC<PanelContainerProps> = ({
   return (
     <div
       style={gridStyle}
-      className={`lg:text-base text-md ${backgroundColor}`}
+      className={`lg:text-base text-md hover:border-2 hover:border-stroke ${backgroundColor}`}
     >
       {children}
     </div>

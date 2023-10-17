@@ -11,15 +11,16 @@ height: 100%;
     :root {
         --color-fill: #fff;
         --color-fill-low-contrast: #fcf5c7;
-        --color-stroke: #adf7b6;
+        --color-fill-high-contrast: #adf7b6;
         --color-stroke-low-contrast: #c8e6c9;
         --color-note-1: #d1c7be;
         --color-note-2: #a4b8b9;
         --color-note-3: #7f998e;
         --color-note-4: #efab8d;
-        --color-text-primary: #333333;
-        --color-text-muted: #4e4e4e;
+        --color-stroke: #2c2c2c;
         --color-text-inverted: #fdf5e6;
+        --color-text-primary: var(--color-stroke);
+        --color-text-muted: #4e4e4e;
     }
 
     .text-xxs {
