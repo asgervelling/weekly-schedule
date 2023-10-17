@@ -4,6 +4,7 @@ import Button from "@/components/Button";
 import { randomWeek } from "@/mockdata/event_data";
 import { CalendarEvent } from "../../types";
 import Schedule from "@/components/Schedule";
+import { parseTs } from "@/calendar/timestamps";
 
 export default function Home() {
   const [days, setDays] = useState<CalendarEvent[][] | null>(null);
@@ -13,8 +14,15 @@ export default function Home() {
   }, []);
 
   const updateDays = () => {
-    const data = randomWeek();
-    setDays(data);
+    // const data = randomWeek();
+    // setDays(data);
+    const event: CalendarEvent = {
+      title: "Test",
+      color: "teal",
+      start: parseTs("05:00"),
+      end: parseTs("07:51"),
+    };
+    setDays([[], [], [], [event], [], [], []]);
   };
 
   return (

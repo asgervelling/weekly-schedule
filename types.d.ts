@@ -5,7 +5,9 @@ export type TimeStamp = {
 
 export type CalendarEvent = {
   title: string;
-  colorHex: string;
+  color: string;
   start: TimeStamp;
   end: TimeStamp;
 };
+
+// export type Day = {}

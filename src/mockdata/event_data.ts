@@ -50,7 +50,7 @@ const randomEvents = (
 
   const event: CalendarEvent = {
     title: titles[Math.floor(Math.random() * titles.length)],
-    colorHex: colors[Math.floor(Math.random() * colors.length)],
+    color: colors[Math.floor(Math.random() * colors.length)],
     start: parseTs(startTimes[0]),
     end: parseTs(endTimes[0]),
   };

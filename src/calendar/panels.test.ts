@@ -4,25 +4,25 @@ import { panelHeight } from "./panels";
 
 const e0: CalendarEvent = {
   title: "",
-  colorHex: "",
+  color: "",
   start: { h: 0, m: 0 },
   end: { h: 12, m: 0 },
 };
 const e1: CalendarEvent = {
   title: "",
-  colorHex: "",
+  color: "",
   start: { h: 0, m: 0 },
   end: { h: 5, m: 7 },
 };
 const e2: CalendarEvent = {
   title: "",
-  colorHex: "",
+  color: "",
   start: { h: 13, m: 57 },
   end: { h: 15, m: 6 },
 };
 const e3: CalendarEvent = {
   title: "",
-  colorHex: "",
+  color: "",
   start: { h: 22, m: 58 },
   end: { h: 23, m: 59 },
 };

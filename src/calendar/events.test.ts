@@ -7,7 +7,7 @@ import { createEmptyEvent } from "./events";
 const createEvent = (title: string, start: string, end: string): CalendarEvent => {
   return {
     title: title,
-    colorHex: "",
+    color: "",
     start: parseTs(start),
     end: parseTs(end),
   };
@@ -149,13 +149,13 @@ describe("padEvents", () => {
     // Empty events are 30 minutes long
     expect(empty_event.end).toEqual(parseTs("01:30"));
     expect(empty_event.title).toEqual("");
-    expect(empty_event.colorHex).toEqual("");
+    expect(empty_event.color).toEqual("");
 
     const event_b = padEvents(testEvents)[19];
     expect(event_b.start).toEqual(parseTs("10:00"));
     expect(event_b.end).toEqual(parseTs("11:00"));
     expect(event_b.title).toEqual("B");
-    expect(event_b.colorHex).toEqual("");
+    expect(event_b.color).toEqual("");
 
     const event_c = padEvents(testEvents)[20];
     expect(event_c).toEqual(createEmptyEvent(parseTs("11:00"), parseTs("11:30")));

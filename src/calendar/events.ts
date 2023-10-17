@@ -7,7 +7,7 @@ import { minutesToTs, tsToMinutes, addTimestamps, parseTs, tsLt, minTs, tsDiff, 
  * with a CalendarEvent.
  */
 export const createEmptyEvent = (start: TimeStamp, end: TimeStamp): CalendarEvent => {
-    return { title: "", colorHex: "", start, end };
+    return { title: "", color: "", start, end };
 };
 
 
@@ -58,7 +58,6 @@ export const insertEvent = (e: CalendarEvent, events: CalendarEvent[]): Calendar
   console.log("Warning: Case not handled");
   return [];
 };
-
 
 /**
  * Create an array of events that has been padded with
