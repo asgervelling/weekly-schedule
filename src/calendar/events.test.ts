@@ -1,10 +1,10 @@
-import { CalendarEvent } from "../../types";
+import { ScheduleEvent } from "../../types";
 import { insertEvent, padEvents } from "./events";
 import { parseTs } from "./timestamps";
 import { createEmptyEvent } from "./events";
 
 
-const createEvent = (title: string, start: string, end: string): CalendarEvent => {
+const createEvent = (title: string, start: string, end: string): ScheduleEvent => {
   return {
     title: title,
     color: "",
@@ -136,7 +136,7 @@ describe("insertEvent", () => {
   });
 });
 
-const testEvents: CalendarEvent[] = [
+const testEvents: Day = [
   createEvent("A", "00:00", "01:00"),
   createEvent("B", "10:00", "11:00"),
   createEvent("C", "17:00", "19:00"),

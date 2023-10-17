@@ -1,17 +1,17 @@
-import { CalendarEvent, TimeStamp } from "../../types";
+import { Day, ScheduleEvent, TimeStamp } from "../../types";
 import { minutesToTs, tsToMinutes, addTimestamps, parseTs, tsLt, minTs, tsDiff, tsGeq } from "./timestamps";
 
 
 /**
  * An empty event in the calendar, which a user may overwrite
- * with a CalendarEvent.
+ * with a ScheduleEvent.
  */
-export const createEmptyEvent = (start: TimeStamp, end: TimeStamp): CalendarEvent => {
+export const createEmptyEvent = (start: TimeStamp, end: TimeStamp): ScheduleEvent => {
     return { title: "", color: "", start, end };
 };
 
 
-export const isEmptyEvent = (e: CalendarEvent) => {
+export const isEmptyEvent = (e: ScheduleEvent) => {
   return e.title === "";
 };
 
@@ -20,7 +20,7 @@ export const isEmptyEvent = (e: CalendarEvent) => {
  * Insert an event into an array of events,
  * using an opinionated algorithm.
  */
-export const insertEvent = (e: CalendarEvent, events: CalendarEvent[]): CalendarEvent[] => {
+export const insertEvent = (e: ScheduleEvent, events: Day): Day => {
   if (events.length === 0) {
     // base case for recursion
     return [e];
@@ -63,8 +63,8 @@ export const insertEvent = (e: CalendarEvent, events: CalendarEvent[]): Calendar
  * Create an array of events that has been padded with
  * empty events, so that it fills the time period 00:00 - 23:59
  */
-export const padEvents = (events: CalendarEvent[]): CalendarEvent[] => {
-  const paddedEvents: CalendarEvent[] = [];
+export const padEvents = (events: Day): Day => {
+  const paddedEvents: Day = [];
 
   /**
    * Add empty events from now until the next event.

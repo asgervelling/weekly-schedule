@@ -6,9 +6,9 @@ import { formatTs } from "@/calendar/timestamps";
 /**
  * A panel with an event displayed inside it.
  */
-const EventPanel: React.FC<PanelProps> = ({ event, dayHeight }) => {
+const EventPanel = ({ event, parentHeight }: PanelProps) => {
   return (
-    <PanelContainer event={event} dayHeight={dayHeight}>
+    <PanelContainer event={event} parentHeight={parentHeight}>
       <p
         style={{ backgroundColor: event.color }}
         className="h-full p-1 text-xs text-primary"

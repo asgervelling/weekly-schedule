@@ -1,27 +1,21 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Button from "@/components/Button";
-import { CalendarEvent } from "../../types";
-import { parseTs } from "@/calendar/timestamps";
-import Week from "@/components/Week";
+import { ScheduleEvent, Week } from "../../types";
+import { addTimestamps, parseTs } from "@/calendar/timestamps";
+import WeeklySchedule from "@/components/WeeklySchedule";
+import { randomOffset, randomWeek } from "@/mockdata/event_data";
+import { insertEvent } from "@/calendar/events";
 
 export default function Home() {
-  const [days, setDays] = useState<CalendarEvent[][] | null>(null);
+  const [week, setWeek] = useState<Week | null>(null);
 
   useEffect(() => {
-    updateDays();
+    updateWeek();
   }, []);
 
-  const updateDays = () => {
-    // const data = randomWeek();
-    // setDays(data);
-    const event: CalendarEvent = {
-      title: "Test",
-      color: "teal",
-      start: parseTs("05:00"),
-      end: parseTs("07:51"),
-    };
-    setDays([[], [], [], [event], [], [], []]);
+  const updateWeek = () => {
+    setWeek(randomWeek());
   };
 
   return (
@@ -29,10 +23,10 @@ export default function Home() {
       {/* Layout: Three columns */}
       <div className="flex h-full gap-16">
         <div className="flex flex-col items-end justify-start w-1/5">
-          <Button onClick={updateDays}>Click me!</Button>
+          <Button onClick={updateWeek}>Click me!</Button>
         </div>
         <div className="flex flex-col items-center justify-center w-3/5">
-          <Week days={days} />
+          <WeeklySchedule week={week} />
         </div>
         <div className="flex flex-col items-start justify-end w-1/5">
           <Button onClick={() => console.log("Hi")}>Button 2</Button>

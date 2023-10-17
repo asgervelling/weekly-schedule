@@ -2,17 +2,19 @@ import React from "react";
 import { PanelProps } from "./Panel";
 import { panelHeight } from "@/calendar/panels";
 
-
 type PanelContainerProps = PanelProps & {
   children?: React.ReactNode;
 };
 
-
-const PanelContainer: React.FC<PanelContainerProps> = ({ event, dayHeight, children }) => {
+const PanelContainer: React.FC<PanelContainerProps> = ({
+  event,
+  parentHeight,
+  children,
+}) => {
   const gridStyle = {
-    height: `${panelHeight(event, dayHeight)}px`,
+    height: `${panelHeight(event, parentHeight)}px`,
   };
-  
+
   return (
     <div
       style={gridStyle}
@@ -22,7 +24,5 @@ const PanelContainer: React.FC<PanelContainerProps> = ({ event, dayHeight, child
     </div>
   );
 };
-
-
 
 export default PanelContainer;

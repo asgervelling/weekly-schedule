@@ -1,26 +1,26 @@
-import { CalendarEvent } from "../../types";
+import { ScheduleEvent } from "../../types";
 import { panelHeight } from "./panels";
 
 
-const e0: CalendarEvent = {
+const e0: ScheduleEvent = {
   title: "",
   color: "",
   start: { h: 0, m: 0 },
   end: { h: 12, m: 0 },
 };
-const e1: CalendarEvent = {
+const e1: ScheduleEvent = {
   title: "",
   color: "",
   start: { h: 0, m: 0 },
   end: { h: 5, m: 7 },
 };
-const e2: CalendarEvent = {
+const e2: ScheduleEvent = {
   title: "",
   color: "",
   start: { h: 13, m: 57 },
   end: { h: 15, m: 6 },
 };
-const e3: CalendarEvent = {
+const e3: ScheduleEvent = {
   title: "",
   color: "",
   start: { h: 22, m: 58 },
