@@ -15,7 +15,7 @@ type WeekProps = {
  */
 const Week: React.FC<WeekProps> = ({ days }) => {
   return (
-    <div className="flex items-center justify-center h-[480px] overflow-y-auto">
+    <div className="flex items-center justify-center h-[480px] w-full overflow-y-auto">
       {days.map((day, i) => (
         <Day key={i} events={day} />
       ))}
