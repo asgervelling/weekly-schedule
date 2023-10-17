@@ -1,10 +1,8 @@
 import React from "react";
 
-
 type WeekProps = {
   children?: React.ReactNode;
 };
-
 
 const WeekContainer: React.FC<WeekProps> = ({ children }) => {
   return (
