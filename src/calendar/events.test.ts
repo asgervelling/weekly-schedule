@@ -225,6 +225,17 @@ describe("insertEvent", () => {
       createEvent("e", "04:15", "06:00"),
     ]);
   });
+  it("should delete many events", () => {
+    const e = createEvent("e", "4:15", "6:00");
+    const x = createEvent("x", "04:00", "04:30");
+    const y = createEvent("y", "04:30", "05:00");
+    const z = createEvent("z", "05:00", "05:30");
+    const a = createEvent("a", "05:30", "06:00");
+    assertDaysEqual(insertEvent(e, [x, y, z, a]), [
+      createEvent("x", "04:00", "04:15"),
+      createEvent("e", "04:15", "06:00"),
+    ]);
+  });
 });
 
 
