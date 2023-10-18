@@ -3,17 +3,17 @@ import { createEvent, eventEquals, insertDay, insertEvent, padEvents } from "./e
 import { formatTs, parseTs } from "./timestamps";
 import { emptyEvent } from "./events";
 import { DayOfWeek } from "../../src/app/enums";
-import { act } from "react-dom/test-utils";
 
 
 
 
 
-const printWeek = (week: Week) => {
+const fmtWeek = (week: Week) => {
+  let s = "";
   for (let i = 0; i < 7; i++) {
-    console.log(DayOfWeek[i]);
-    console.log(fmtDay(week[i]));
+    s += `${DayOfWeek[i]}: ${fmtDay(week[i])}\n`;
   }
+  return s;
 }
 
 const fmtDay = (day: Day) => {
@@ -25,6 +25,9 @@ const fmtDay = (day: Day) => {
 }
 
 const fmtEvent = (event: ScheduleEvent) => {
+  if (event.start === undefined || event.end === undefined) {
+    return "TITLE: " + event.title + "\n";
+  }
   const f = formatTs;
   return `${f(event.start)} - ${f(event.end)} ${event.title}\n`;
 }
@@ -40,15 +43,20 @@ const assertWeeksEqual = (actual: Week, expected: Week) => {
 }
 
 const assertDaysEqual = (actual: Day, expected: Day) => {
-  if (actual.length !== expected.length) {
-    fail(`Expected ${expected.length} events, but got ${actual.length}`);
-  }
+  expect(actual.length).toEqual(expected.length);
   for (let i = 0; i < actual.length; i++) {
     const eActual = actual[i];
     const eExpected = expected[i];
+    // if (!eventEquals(eActual, eExpected)) {
+    //   console.log("NOT THE CASE THAT THESE ARE EQUAL:");
+    //   console.log("Expected:", eExpected);
+    //   console.log("Actual:", eActual);
+    // }
     expect(eventEquals(eActual, eExpected)).toBe(true);
   }
+  // Test passed
 }
+
 
 describe("insertDay", () => {
   it("should insert a day into an empty week", () => {
@@ -64,9 +72,9 @@ describe("insertDay", () => {
       createEvent("C", "17:00", "19:00"),
       createEvent("B", "10:00", "11:00"),
     ];
-    const week = [[], [], [alreadyThere], [], [], [], []];
-    const expectedWeek = [[], day, alreadyThere, [], [], [], []];
-    const actualWeek = insertDay(day, 1, week);
+    const week: Week = [[], [], alreadyThere, [], [], [], []];
+    const expectedWeek: Week = [[], day, alreadyThere, [], [], [], []];
+    const actualWeek = insertDay(day, DayOfWeek.Tuesday, week);
     assertWeeksEqual(actualWeek, expectedWeek);
   });
 });
@@ -195,11 +203,23 @@ describe("insertEvent", () => {
       createEvent("e", "14:00", "16:00"),
     ]);
   });
-  it("Should delete more than one event", () => {
+  it("Should be inserted after multiple events", () => {
+    const e = createEvent("e", "14:00", "16:00");
+    const x = createEvent("x", "10:00", "12:00");
+    const y = createEvent("y", "12:00", "14:00");
+    assertDaysEqual(insertEvent(e, [x, y]), [
+      createEvent("x", "10:00", "12:00"),
+      createEvent("y", "12:00", "14:00"),
+      createEvent("e", "14:00", "16:00"),
+    ]);
+  });
+  it("should delete more than one event", () => {
     const e = createEvent("e", "4:15", "6:00");
     const x = createEvent("x", "04:00", "04:30");
     const y = createEvent("y", "04:30", "05:00");
     const z = createEvent("z", "05:00", "05:30");
+    console.log("Debug: should delete more than one event");
+    console.log(insertEvent(e, [x, y, z]));
     assertDaysEqual(insertEvent(e, [x, y, z]), [
       createEvent("x", "04:00", "04:15"),
       createEvent("e", "04:15", "06:00"),
@@ -227,6 +247,6 @@ describe("padEvents", () => {
     expect(event_b.title).toEqual("B");
 
     const event_c = padEvents(testEvents)[20];
-    expect(event_c).toEqual(emptyEvent("11:00", "11:30"));
+    expect(eventEquals(event_c, emptyEvent("11:00", "11:30"))).toBe(true);
   })
 })

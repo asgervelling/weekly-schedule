@@ -122,9 +122,8 @@ export const insertEvent = (e: ScheduleEvent, events: Day): Day => {
     return [x, ...xs];
   }
   if (tsGeq(x.start, e.start) && tsGeq(e.end, x.end)) {
-    // e contains x. x is overwritten, and we recurse
-    // to see if e overwrites any other events
-    return [e, insertEvent(e, xs)];
+    // e contains x. x is overwritten
+    return [e, ...xs];
   }
   
   if (tsGeq(x.start, e.start) && tsLt(e.start, x.end)) {

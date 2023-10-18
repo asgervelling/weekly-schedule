@@ -107,13 +107,26 @@ export const tsDiff = (t0: TimeStamp, t1: TimeStamp): TimeStamp => {
 /**
  * Format a TimeStamp as a string
  */
-export const formatTs = (ts: TimeStamp): string => {
+export const formatTss = (ts: TimeStamp): string => {
   const fmt = (n: number) => Math.round(n).toString().padStart(2, "0");
   const h = ts.h < 0
     ? "-" + fmt(-ts.h)
     : fmt(ts.h);
   return `${h}:${fmt(ts.m)}`;
 }
+
+export const formatTs = (ts: TimeStamp): string => {
+  try {
+    const fmt = (n: number) => Math.round(n).toString().padStart(2, "0");
+    const h = ts.h < 0 ? "-" + fmt(-ts.h) : fmt(ts.h);
+    return `${h}:${fmt(ts.m)}`;
+  } catch (error) {
+    console.error("WOW:", ts);
+    throw error;
+  }
+};
+
+
 
 
 /**
