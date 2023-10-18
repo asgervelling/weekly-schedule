@@ -1,15 +1,38 @@
 import { DayOfWeek } from "@/app/enums";
 import { Day, ScheduleEvent, TimeStamp, Week } from "../../types";
-import { minutesToTs, tsToMinutes, addTimestamps, parseTs, tsLt, minTs, tsDiff, tsGeq, tsEq } from "./timestamps";
+import { 
+  minutesToTs,
+  tsToMinutes,
+  addTimestamps,
+  parseTs,
+  tsLt,
+  minTs,
+  tsDiff,
+  tsGeq,
+  tsEq,
+  formatTs
+} from "./timestamps";
 
 
 /**
  * An empty event in the calendar, which a user may overwrite
- * with a ScheduleEvent.
+ * with a non-empty one.
  */
-export const emptyEvent = (start: TimeStamp, end: TimeStamp): ScheduleEvent => {
-    return { title: "", color: "", start, end };
+export const emptyEvent = (start: string, end: string): ScheduleEvent => {
+    return {
+      ...createEvent("", start, end),
+      color: "",
+    };
 };
+
+
+/**
+ * An empty event at the specified time.
+ */
+export const emptyEventAt = (start: TimeStamp, end: TimeStamp): ScheduleEvent => {
+  return createEvent("", formatTs(start), formatTs(end));
+};
+
 
 
 export const createEvent = (
@@ -29,6 +52,18 @@ export const createEvent = (
     end: endTime,
   };
 };
+
+
+/**
+ * Compares everything but color
+ */
+export const eventEquals = (e1: ScheduleEvent, e2: ScheduleEvent): boolean => {
+  return (
+    e1.title === e2.title &&
+    tsEq(e1.start, e2.start) &&
+    tsEq(e1.end, e2.end)
+  );
+}
 
 
 /**
@@ -87,8 +122,9 @@ export const insertEvent = (e: ScheduleEvent, events: Day): Day => {
     return [x, ...xs];
   }
   if (tsGeq(x.start, e.start) && tsGeq(e.end, x.end)) {
-    // e contains x. x is overwritten
-    return [e, ...xs];
+    // e contains x. x is overwritten, and we recurse
+    // to see if e overwrites any other events
+    return [e, insertEvent(e, xs)];
   }
   
   if (tsGeq(x.start, e.start) && tsLt(e.start, x.end)) {
@@ -127,7 +163,7 @@ export const padEvents = (events: Day): Day => {
       delta = minutesToTs(30 - tsToMinutes(start) % 30);
     }
     const t1 = addTimestamps(start, delta);
-    paddedEvents.push(emptyEvent(start, t1));
+    paddedEvents.push(emptyEventAt(start, t1));
     addEmptyEvents(t1, end);
   };
 

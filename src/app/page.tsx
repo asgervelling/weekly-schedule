@@ -1,7 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import Button from "@/components/Button";
-import { emptyWeek, insertDay, insertEvent } from "@/calendar/events";
+import {
+  emptyWeek,
+  insertDay,
+  insertEvent,
+  randomNoteColor,
+} from "@/calendar/events";
 import { ScheduleEvent, Week } from "../../types";
 import WeeklySchedule from "@/components/WeeklySchedule";
 import ScheduleEventForm from "@/components/ScheduleEventForm";
@@ -13,6 +18,7 @@ const Home = () => {
   const [week, setWeek] = useState<Week>(emptyWeek());
 
   const addEvent = (e: ScheduleEvent, dayOfWeek: DayOfWeek) => {
+    console.log("Adding event", JSON.stringify(e));
     const day = insertEvent(e, week[dayOfWeek]);
     const newWeek = insertDay(day, dayOfWeek, week);
     setWeek(newWeek);
@@ -23,7 +29,12 @@ const Home = () => {
     console.log(
       `Parent received event: ${f(e.start)} - ${f(e.end)} ${e.title}\n`
     );
-    // Todo: get day of week, addEvent()
+    const event: ScheduleEvent = {
+      ...e,
+      title: "New title",
+      color: randomNoteColor(),
+    };
+    addEvent(event, DayOfWeek.Monday);
   };
 
   return (
