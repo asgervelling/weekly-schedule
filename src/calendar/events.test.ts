@@ -227,6 +227,9 @@ describe("insertEvent", () => {
   });
 });
 
+
+
+
 const testEvents: Day = [
   createEvent("A", "00:00", "01:00"),
   createEvent("B", "10:00", "11:00"),

@@ -118,12 +118,14 @@ export const insertEvent = (e: ScheduleEvent, events: Day): Day => {
   }
 
   if (tsLt(x.start, e.start) && tsLt(e.end, x.end)) {
-    // x contains e. e is not inserted
+    // x starts earlier and ends later than e.
+    // e is not inserted
     return [x, ...xs];
   }
   if (tsGeq(x.start, e.start) && tsGeq(e.end, x.end)) {
-    // e contains x. x is overwritten
-    return [e, ...xs];
+    // e starts earlier and ends later than x.
+    // x is overwritten
+    return insertEvent(e, xs);
   }
   
   if (tsGeq(x.start, e.start) && tsLt(e.start, x.end)) {
@@ -132,7 +134,7 @@ export const insertEvent = (e: ScheduleEvent, events: Day): Day => {
     return [e, newX, ...xs];
   }
   if (tsLt(x.start, e.start) && tsGeq(e.end, x.end)) {
-    // e"s start shortens x
+    // e's start pushes back the end of x
     const newX = { ...x, end: e.start };
     return [newX, ...insertEvent(e, xs)]
   }
