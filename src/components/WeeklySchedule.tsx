@@ -1,9 +1,10 @@
-import React from "react";
+import React, { SyntheticEvent } from "react";
 import DailySchedule from "./DailySchedule";
-import { Week } from "../../types";
+import { ScheduleEvent, Week } from "../../types";
 
 type WeeklyScheduleProps = {
   week: Week | null;
+  onPanelClick: (e: ScheduleEvent) => void;
 };
 
 /**
@@ -11,22 +12,22 @@ type WeeklyScheduleProps = {
  *
  * @param week - Seven lists of events.
  */
-const WeeklySchedule = ({ week }: WeeklyScheduleProps) => {
-  const renderDays = () => {
-    return week?.map((day, i) => <DailySchedule key={i} events={day} />);
-  };
-
-  const renderFallback = () => {
-    return (
-      <div className="flex items-center justify-center w-full h-full">
-        Loading...
-      </div>
-    );
+const WeeklySchedule = ({ week, onPanelClick }: WeeklyScheduleProps) => {
+  const handleChildData = (e: ScheduleEvent) => {
+    onPanelClick(e);
   };
 
   return (
     <div className="flex w-full h-full overflow-y-auto border border-black rounded">
-      {week !== null ? renderDays() : renderFallback()}
+      {week !== null ? (
+        week?.map((day, i) => (
+          <DailySchedule key={i} events={day} onPanelClick={handleChildData} />
+        ))
+      ) : (
+        <div className="flex items-center justify-center w-full h-full">
+          Loading...
+        </div>
+      )}
     </div>
   );
 };

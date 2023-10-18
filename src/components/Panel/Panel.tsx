@@ -10,7 +10,7 @@ import EmptyPanel from "./EmptyPanel";
 export type PanelProps = {
   event: ScheduleEvent;
   parentHeight: number;
-  onClick: MouseEventHandler;
+  onClick: (e: ScheduleEvent) => void;
 };
 
 /**
@@ -21,6 +21,11 @@ export type PanelProps = {
  * @param onClick - The function to call when the panel is clicked.
  */
 const Panel = ({ event, parentHeight, onClick }: PanelProps) => {
+  const handleClick = () => {
+    console.log("Hello from panel");
+    onClick(event);
+  };
+
   return pipe(
     event,
     O.fromPredicate(isEmptyEvent),
@@ -29,14 +34,14 @@ const Panel = ({ event, parentHeight, onClick }: PanelProps) => {
         <EventPanel
           event={event}
           parentHeight={parentHeight}
-          onClick={onClick}
+          onClick={handleClick}
         />
       ),
       () => (
         <EmptyPanel
           event={event}
           parentHeight={parentHeight}
-          onClick={onClick}
+          onClick={handleClick}
         />
       )
     )
