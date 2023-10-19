@@ -3,7 +3,7 @@ import { Week } from "../../types";
 import { emptyWeek } from "./events";
 import * as E from "fp-ts/Either";
 import * as O from "fp-ts/Option";
-import { Either, left, right } from "fp-ts/lib/Either";
+import { Either } from "fp-ts/lib/Either";
 
 /**
  * Get the query string from search parameters, if it exists.
