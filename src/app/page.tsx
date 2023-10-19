@@ -11,30 +11,46 @@ import { ScheduleEvent, Week } from "../../types";
 import WeeklySchedule from "@/components/WeeklySchedule";
 import ScheduleEventForm from "@/components/ScheduleEventForm";
 import { DayOfWeek } from "./enums";
-import { formatTs } from "@/calendar/timestamps";
+import { getInitialWeek } from "@/calendar/urls";
 
-const Home = () => {
-  // week[Monday] = [event1, event2, ...]
-  const [week, setWeek] = useState<Week>(emptyWeek());
+type HomeProps = {
+  searchParams: {
+    week: string | undefined;
+  };
+};
 
-  const addEvent = (e: ScheduleEvent, dayOfWeek: DayOfWeek) => {
-    console.log("Adding event", JSON.stringify(e));
-    const day = insertEvent(e, week[dayOfWeek]);
-    const newWeek = insertDay(day, dayOfWeek, week);
+const Home = ({ searchParams }: HomeProps) => {
+  const [week, setWeek] = useState<Week>(getInitialWeek(searchParams));
+
+  /**
+   * Add an event to the week
+   */
+  const addEvent = (e: ScheduleEvent, d: DayOfWeek) => {
+    const day = insertEvent(e, week[d]);
+    const newWeek = insertDay(day, d, week);
     setWeek(newWeek);
   };
 
-  const onPanelClick = (e: ScheduleEvent) => {
-    const f = formatTs;
-    console.log(
-      `Parent received event: ${f(e.start)} - ${f(e.end)} ${e.title}\n`
-    );
+  /**
+   * Pass this function down the UI tree
+   */
+  const onPanelClick = (e: ScheduleEvent, d: DayOfWeek) => {
     const event: ScheduleEvent = {
       ...e,
       title: "New title",
       color: randomNoteColor(),
     };
-    addEvent(event, DayOfWeek.Monday);
+    addEvent(event, d);
+  };
+
+  /**
+   * Get a URL with the current week as parameters.
+   * Copy it to the clipboard
+   */
+  const share = () => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("week", JSON.stringify(week));
+    navigator.clipboard.writeText(url.toString());
   };
 
   return (
@@ -47,7 +63,7 @@ const Home = () => {
           <WeeklySchedule week={week} onPanelClick={onPanelClick} />
         </div>
         <div className="flex flex-col items-start justify-end w-1/5">
-          <Button onClick={() => console.log("Hi")}>Button 2</Button>
+          <Button onClick={share}>Copy Link</Button>
         </div>
       </div>
     </>

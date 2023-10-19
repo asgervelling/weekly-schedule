@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, SyntheticEvent } from "react";
+import React from "react";
 import * as O from "fp-ts/Option";
 import { pipe } from "fp-ts/function";
 
@@ -21,11 +21,6 @@ export type PanelProps = {
  * @param onClick - The function to call when the panel is clicked.
  */
 const Panel = ({ event, parentHeight, onClick }: PanelProps) => {
-  const handleClick = () => {
-    console.log("Hello from panel");
-    onClick(event);
-  };
-
   return pipe(
     event,
     O.fromPredicate(isEmptyEvent),
@@ -34,14 +29,14 @@ const Panel = ({ event, parentHeight, onClick }: PanelProps) => {
         <EventPanel
           event={event}
           parentHeight={parentHeight}
-          onClick={handleClick}
+          onClick={onClick}
         />
       ),
       () => (
         <EmptyPanel
           event={event}
           parentHeight={parentHeight}
-          onClick={handleClick}
+          onClick={onClick}
         />
       )
     )

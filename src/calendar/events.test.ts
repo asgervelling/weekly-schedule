@@ -11,26 +11,26 @@ import { DayOfWeek } from "../../src/app/enums";
 const fmtWeek = (week: Week) => {
   let s = "";
   for (let i = 0; i < 7; i++) {
-    s += `${DayOfWeek[i]}: ${fmtDay(week[i])}\n`;
+    s += `${DayOfWeek[i]}:\n${fmtDay(week[i])}`;
   }
   return s;
-}
+};
 
 const fmtDay = (day: Day) => {
   let s = "";
   for (let i = 0; i < day.length; i++) {
-    s += fmtEvent(day[i]);
+    s += `\t${fmtEvent(day[i])}`;
   }
   return s;
-}
+};
 
 const fmtEvent = (event: ScheduleEvent) => {
   if (event.start === undefined || event.end === undefined) {
     return "TITLE: " + event.title + "\n";
   }
   const f = formatTs;
-  return `${f(event.start)} - ${f(event.end)} ${event.title}\n`;
-}
+  return `${f(event.start)} - ${f(event.end)}: ${event.title}\n`;
+};
 
 const assertWeeksEqual = (actual: Week, expected: Week) => {
   for (let i = 0; i < 7; i++) {
@@ -218,8 +218,6 @@ describe("insertEvent", () => {
     const x = createEvent("x", "04:00", "04:30");
     const y = createEvent("y", "04:30", "05:00");
     const z = createEvent("z", "05:00", "05:30");
-    console.log("Debug: should delete more than one event");
-    console.log(insertEvent(e, [x, y, z]));
     assertDaysEqual(insertEvent(e, [x, y, z]), [
       createEvent("x", "04:00", "04:15"),
       createEvent("e", "04:15", "06:00"),

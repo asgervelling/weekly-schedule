@@ -24,7 +24,7 @@ const PanelContainer: React.FC<PanelContainerProps> = ({
     <div
       style={gridStyle}
       className={`lg:text-base text-md ${backgroundColor}`}
-      onClick={onClick}
+      onClick={() => onClick(event)}
     >
       {children}
     </div>
