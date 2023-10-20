@@ -9,6 +9,6 @@ export type ScheduleEvent = {
   start: TimeStamp;
   end: TimeStamp;
 };
-
+g
 export type Day = CalendarEvent[];
 export type Week = Day[];

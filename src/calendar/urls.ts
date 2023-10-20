@@ -6,27 +6,31 @@ import * as O from "fp-ts/Option";
 import { Either } from "fp-ts/lib/Either";
 
 /**
- * Get the query string from search parameters, if it exists.
+ * Try to parse a string as JSON.
  *
- * @param searchParams - An object containing the 'week' parameter.
- * @returns Either an error or the query string.
+ * @param s A string that may or may not be JSON.
+ * @returns Either an error or the parsed JSON.
  */
-function getURLParams(queryString: string): Either<Error, string> {
-  return E.fromPredicate(
-    (value) => typeof value === "string" && value !== "",
-    () => new Error(`Invalid parameter in query string: ${queryString}`)
-  )(queryString);
-}
-
 const parseJson: (s: string) => Either<Error, Week> = E.tryCatchK(
   JSON.parse,
   E.toError
 );
 
-const getQueryString = (searchParams: {
+/**
+ * Get the week parameter from the query string.
+ *
+ * @param searchParams An object given to us by the router
+ *                     representing the query string.
+ * @returns An option containing the week parameter, or none if it is empty.
+ */
+const getWeekJson = (searchParams: {
   week: string | undefined;
 }): O.Option<string> => {
-  return O.fromNullable(searchParams.week);
+  return pipe(
+    searchParams.week,
+    O.fromNullable,
+    O.chain(O.fromPredicate((s) => s !== ""))
+  );
 };
 
 /**
@@ -38,12 +42,11 @@ export const getInitialWeek = (searchParams: {
 }): Week => {
   return pipe(
     searchParams,
-    getQueryString,
-    O.match(emptyWeek, (s) =>
+    getWeekJson,
+    O.match(emptyWeek, (json) =>
       pipe(
-        s,
-        getURLParams,
-        E.chain(parseJson),
+        json,
+        parseJson,
         E.getOrElse((error) => {
           console.error(`Error parsing week: ${error.message}`);
           return emptyWeek();
