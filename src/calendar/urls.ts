@@ -1,8 +1,10 @@
+import * as E from "fp-ts/Either";
+import * as O from "fp-ts/Option";
+import pako from "pako";
+
 import { pipe } from "fp-ts/function";
 import { Week } from "../../types";
 import { emptyWeek } from "./events";
-import * as E from "fp-ts/Either";
-import * as O from "fp-ts/Option";
 
 /**
  * Try to parse a string as JSON.
@@ -10,7 +12,7 @@ import * as O from "fp-ts/Option";
  * @param s A string that may or may not be JSON.
  * @returns Either an error or the parsed JSON.
  */
-const parseJson: (s: O.Option<string>) => E.Either<Error, Week> = (json) =>
+const parseJson = (json: O.Option<string>): E.Either<Error, Week> =>
   pipe(
     json,
     O.fold(
@@ -18,6 +20,10 @@ const parseJson: (s: O.Option<string>) => E.Either<Error, Week> = (json) =>
       (jsonStr) => E.tryCatch(() => JSON.parse(jsonStr), E.toError)
     )
   );
+
+const compress = (s: string): Uint8Array => pako.deflate(JSON.stringify(s));
+
+const decompress = (c: Uint8Array): string => pako.inflate(c, { to: "string" });
 
 /**
  * Get the week parameter from the query string.
@@ -36,12 +42,12 @@ const getWeekJson = (searchParams: {
   );
 
 /**
- * If there are search params, try to parse them as a Week.
- * If there are no search params, return an empty Week.
+ * Load the state of the application from the URL's searchParams.
+ *
+ * @param searchParams An object given to us by the router
+ * @returns The state of the application, or an empty week if the URL is invalid.
  */
-export const getInitialWeek = (searchParams: {
-  week: string | undefined;
-}): Week =>
+export const deserialize = (searchParams: { week: string | undefined }): Week =>
   pipe(
     searchParams,
     getWeekJson,
@@ -51,3 +57,8 @@ export const getInitialWeek = (searchParams: {
       return emptyWeek();
     })
   );
+
+/**
+ * Create a string from the state of the application
+ */
+export const serialize = (week: Week): string => JSON.stringify(week);
