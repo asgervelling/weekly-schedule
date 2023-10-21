@@ -32,7 +32,9 @@ const Home = ({ searchParams }: HomeProps) => {
   };
 
   /**
+   * Create an event at the clicked panel.
    * Pass this function down the UI tree
+   * to the components that know how to create an event.
    */
   const onPanelClick = (e: ScheduleEvent, d: DayOfWeek) => {
     const event: ScheduleEvent = {
