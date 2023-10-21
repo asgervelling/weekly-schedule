@@ -44,22 +44,25 @@ export const importState = (searchParams: { week: string | undefined }): Week =>
 const parseJson = (json: string): E.Either<Error, Week> =>
   E.tryCatch(() => JSON.parse(json), E.toError);
 
-const compress = (s: string): string => {
-  // Check example:
-  // https://github.com/nodeca/pako/blob/master/examples/server.js
-  const compressed = pako.gzip(s);
-  const b64Encoded = Buffer.from(compressed).toString("base64");
-  return b64Encoded;
-};
+/**
+ * Compress a string using gzip and then encode it as base64.
+ */
+const compress = (s: string): string =>
+  pipe(s, pako.gzip, (compressed) =>
+    Buffer.from(compressed).toString("base64")
+  );
 
+/**
+ * Decode a base64 string and then decompress it using gzip.
+ */
 const decompress = (s: string): E.Either<Error, string> =>
-  // This function runs on the server
-  // https://stackoverflow.com/a/69179527/12819647
   E.tryCatch(() => {
-    const b64Encoded = Buffer.from(s, "base64");
-    const decompressed = pako.ungzip(b64Encoded);
-    const utf8Decoded = new TextDecoder().decode(decompressed);
-    return utf8Decoded;
+    return pipe(
+      s,
+      (s) => Buffer.from(s, "base64"),
+      pako.ungzip,
+      (s) => new TextDecoder().decode(s)
+    );
   }, E.toError);
 
 /**
