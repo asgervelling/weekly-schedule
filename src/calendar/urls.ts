@@ -124,7 +124,7 @@ export const deserialize1 = (searchParams: {
   const weekJson = weekJsonOpt.value;
   console.log("weekJson", weekJson);
   // No need to decode
-  const decompressed = decompress(weekJson.toString());
+  const decompressed = decompress(weekJson);
   const weekJsonParsed = JSON.parse(decompressed);
   console.log("weekJsonParsed", weekJsonParsed);
   return weekJsonParsed;
@@ -148,9 +148,7 @@ export const serialize1 = (week: Week): string => {
   console.log("weekJson", weekJson);
   const compressed = compress(weekJson);
   console.log("compressed", compressed);
-  const compressedStr = compressed.toString();
-  console.log("compressedStr", compressedStr);
-  return compressedStr;
+  return compressed;
 };
 
 /**

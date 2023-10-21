@@ -26,7 +26,7 @@ type HomeProps = {
 };
 
 const Home = ({ searchParams }: HomeProps) => {
-  const [week, setWeek] = useState<Week>(emptyWeek());
+  const [week, setWeek] = useState<Week>(deserialize1(searchParams));
 
   /**
    * Add an event to the week
@@ -54,10 +54,10 @@ const Home = ({ searchParams }: HomeProps) => {
    * Copy it to the clipboard
    */
   const share = () => {
-    playWithCompression(week);
-    // const url = new URL(window.location.href);
-    // url.searchParams.set("week", serialize1(week));
-    // navigator.clipboard.writeText(url.toString());
+    // playWithCompression(week);
+    const url = new URL(window.location.href);
+    url.searchParams.set("week", serialize1(week));
+    navigator.clipboard.writeText(url.toString());
   };
 
   return (
