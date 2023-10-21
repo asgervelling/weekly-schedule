@@ -11,7 +11,7 @@ import { ScheduleEvent, Week } from "../../types";
 import WeeklySchedule from "@/components/WeeklySchedule";
 import ScheduleEventForm from "@/components/ScheduleEventForm";
 import { DayOfWeek } from "./enums";
-import { serialize, deserialize } from "@/calendar/urls";
+import { serialize, deserialize, playWithCompression } from "@/calendar/urls";
 
 type HomeProps = {
   searchParams: {
@@ -20,7 +20,7 @@ type HomeProps = {
 };
 
 const Home = ({ searchParams }: HomeProps) => {
-  const [week, setWeek] = useState<Week>(deserialize(searchParams));
+  const [week, setWeek] = useState<Week>(emptyWeek());
 
   /**
    * Add an event to the week
@@ -48,9 +48,10 @@ const Home = ({ searchParams }: HomeProps) => {
    * Copy it to the clipboard
    */
   const share = () => {
-    const url = new URL(window.location.href);
-    url.searchParams.set("week", serialize(week));
-    navigator.clipboard.writeText(url.toString());
+    playWithCompression(week);
+    // const url = new URL(window.location.href);
+    // url.searchParams.set("week", serialize(week));
+    // navigator.clipboard.writeText(url.toString());
   };
 
   return (

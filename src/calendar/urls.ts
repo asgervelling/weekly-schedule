@@ -44,6 +44,20 @@ const getWeekJson = (searchParams: {
     O.chain(O.fromPredicate((s) => s !== ""))
   );
 
+const getWeekParam = (searchParams: {
+  week: string | undefined;
+}): O.Option<string> =>
+  pipe(
+    searchParams.week,
+    O.fromNullable,
+    O.chain(O.fromPredicate((s) => s !== ""))
+  );
+
+const p = (x: any, msg: string) => {
+  console.log(msg, x);
+  return x;
+};
+
 /**
  * Load the state of the application from the URL's searchParams.
  *
@@ -52,11 +66,13 @@ const getWeekJson = (searchParams: {
  */
 export const deserialize = (searchParams: { week: string | undefined }): Week =>
   pipe(
-    searchParams,
-    getWeekJson,
-    parseJson,
+    p(searchParams, "searchParams"),
+    // getWeekParam
+    // decodeUriComponent
+    p(getWeekJson, "getWeekJson"),
+    p(parseJson, "parseJson"),
     E.getOrElse((error) => {
-      console.error(`Error parsing week: ${error.message}`);
+      console.error(`Error parsing week: ${error}`);
       return emptyWeek();
     })
   );
@@ -65,3 +81,23 @@ export const deserialize = (searchParams: { week: string | undefined }): Week =>
  * Create a string from the state of the application
  */
 export const serialize = (week: Week): string => JSON.stringify(week);
+
+export const playWithCompression = (week: Week): void => {
+  //
+  const compressed = compress(serialize(week));
+  const decompressed = parseJson(O.some(decompress(compressed)));
+
+  // Deserialize manually
+  const testParams =
+    "%5B%5B%7B%22title%22%3A%22New%20title%22%2C%22color%22%3A%22var%28--color-note-2%29%22%2C%22start%22%3A%7B%22h%22%3A0%2C%22m%22%3A0%7D%2C%22end%22%3A%7B%22h%22%3A0%2C%22m%22%3A30%7D%7D%5D%2C%5B%5D%2C%5B%5D%2C%5B%5D%2C%5B%5D%2C%5B%5D%2C%5B%5D%5D";
+  console.log("DESERIALIZE");
+
+  const urlDecoded = decodeURIComponent(testParams);
+  const weekJsonOpt = getWeekJson({ week: urlDecoded });
+
+  console.log(urlDecoded);
+  console.log(weekJsonOpt);
+
+  // deserialize({ week: testParams });
+  // console.log({ compressed, decompressed });
+};
