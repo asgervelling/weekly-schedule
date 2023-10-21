@@ -25,7 +25,9 @@ export const exportState = (week: Week): string => {
  * @returns A Week object on success,
  *          or an empty Week object on failure.
  */
-export const importState = (searchParams: { week: string | undefined }): Week =>
+export const importState = (searchParams: {
+  week: string | undefined;
+}): Week =>
   pipe(
     searchParams,
     getWeekParam,
@@ -70,7 +72,8 @@ const decompress = (s: string): E.Either<Error, string> =>
  *
  * @param searchParams An object given to us by the router
  *                     representing the query string.
- * @returns An option containing the week parameter, or none if it is empty.
+ * @returns An option containing the week parameter,
+ *          or none if it is empty.
  */
 const getWeekParam = (searchParams: {
   week: string | undefined;
@@ -102,4 +105,5 @@ const parseWeek = (weekParam: string): Week =>
 /**
  * Create a string from the state of the application
  */
-const serialize = (week: Week): string => pipe(week, JSON.stringify, compress);
+const serialize = (week: Week): string =>
+  pipe(week, JSON.stringify, compress);
