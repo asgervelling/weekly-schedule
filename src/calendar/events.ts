@@ -1,6 +1,6 @@
 import { DayOfWeek } from "@/app/enums";
 import { Day, ScheduleEvent, TimeStamp, Week } from "../../types";
-import { 
+import {
   minutesToTs,
   tsToMinutes,
   addTimestamps,
@@ -10,30 +10,33 @@ import {
   tsDiff,
   tsGeq,
   tsEq,
-  formatTs
+  formatTs,
 } from "./timestamps";
-
+import { emptyEventLength } from "@/settings";
 
 /**
  * An empty event in the calendar, which a user may overwrite
  * with a non-empty one.
  */
-export const emptyEvent = (start: string, end: string): ScheduleEvent => {
-    return {
-      ...createEvent("", start, end),
-      color: "",
-    };
+export const emptyEvent = (
+  start: string,
+  end: string
+): ScheduleEvent => {
+  return {
+    ...createEvent("", start, end),
+    color: "",
+  };
 };
-
 
 /**
  * An empty event at the specified time.
  */
-export const emptyEventAt = (start: TimeStamp, end: TimeStamp): ScheduleEvent => {
+export const emptyEventAt = (
+  start: TimeStamp,
+  end: TimeStamp
+): ScheduleEvent => {
   return createEvent("", formatTs(start), formatTs(end));
 };
-
-
 
 export const createEvent = (
   title: string,
@@ -53,18 +56,19 @@ export const createEvent = (
   };
 };
 
-
 /**
  * Compares everything but color
  */
-export const eventEquals = (e1: ScheduleEvent, e2: ScheduleEvent): boolean => {
+export const eventEquals = (
+  e1: ScheduleEvent,
+  e2: ScheduleEvent
+): boolean => {
   return (
     e1.title === e2.title &&
     tsEq(e1.start, e2.start) &&
     tsEq(e1.end, e2.end)
   );
-}
-
+};
 
 /**
  * Create a Week with no events.
@@ -73,11 +77,9 @@ export const emptyWeek = (): Week => {
   return [[], [], [], [], [], [], []];
 };
 
-
 export const isEmptyEvent = (e: ScheduleEvent) => {
   return e.title === "";
 };
-
 
 export const randomNoteColor = (): string => {
   const colors = [];
@@ -88,15 +90,18 @@ export const randomNoteColor = (): string => {
   return `var(${colors[randomIndex]})`;
 };
 
-
 /**
  * Create a new Week with the given Day inserted.
  */
-export const insertDay = (day: Day, dayOfWeek: DayOfWeek, week: Week): Week => {
+export const insertDay = (
+  day: Day,
+  dayOfWeek: DayOfWeek,
+  week: Week
+): Week => {
   const newWeek = [...week];
   newWeek[dayOfWeek] = day;
   return newWeek;
-}
+};
 
 /**
  * Insert an event into an array of events,
@@ -127,7 +132,7 @@ export const insertEvent = (e: ScheduleEvent, events: Day): Day => {
     // x is overwritten
     return insertEvent(e, xs);
   }
-  
+
   if (tsGeq(x.start, e.start) && tsLt(e.start, x.end)) {
     // e pushes the start of x forward
     const newX = { ...x, start: e.end };
@@ -136,9 +141,9 @@ export const insertEvent = (e: ScheduleEvent, events: Day): Day => {
   if (tsLt(x.start, e.start) && tsGeq(e.end, x.end)) {
     // e's start pushes back the end of x
     const newX = { ...x, end: e.start };
-    return [newX, ...insertEvent(e, xs)]
+    return [newX, ...insertEvent(e, xs)];
   }
-  
+
   console.log("Warning: Case not handled");
   return [];
 };
@@ -153,15 +158,20 @@ export const padEvents = (events: Day): Day => {
   /**
    * Add empty events from now until the next event.
    * The empty events have a length in minutes of
-   * min(30 minutes, time to next event)
+   * min(emptyEventLength minutes, time to next event)
    */
   const addEmptyEvents = (start: TimeStamp, end: TimeStamp): void => {
     if (tsToMinutes(start) >= tsToMinutes(end)) {
       return;
     }
-    let delta = minTs(minutesToTs(30), tsDiff(start, end));
-    if (tsToMinutes(start) % 30 !== 0) {
-      delta = minutesToTs(30 - tsToMinutes(start) % 30);
+    let delta = minTs(
+      minutesToTs(emptyEventLength),
+      tsDiff(start, end)
+    );
+    if (tsToMinutes(start) % emptyEventLength !== 0) {
+      delta = minutesToTs(
+        emptyEventLength - (tsToMinutes(start) % emptyEventLength)
+      );
     }
     const t1 = addTimestamps(start, delta);
     paddedEvents.push(emptyEventAt(start, t1));

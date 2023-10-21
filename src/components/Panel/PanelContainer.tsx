@@ -2,6 +2,7 @@ import React from "react";
 import { PanelProps } from "./Panel";
 import { panelHeight } from "@/calendar/panels";
 import { tsToMinutes } from "@/calendar/timestamps";
+import { emptyEventLength } from "@/settings";
 
 type PanelContainerProps = PanelProps & {
   children?: React.ReactNode;
@@ -17,7 +18,8 @@ const PanelContainer: React.FC<PanelContainerProps> = ({
     height: `${panelHeight(event, parentHeight)}px`,
   };
 
-  const isEven = Math.floor(tsToMinutes(event.start) / 30) % 2 === 0;
+  const isEven =
+    Math.floor(tsToMinutes(event.start) / emptyEventLength) % 2 === 0;
   const backgroundColor = isEven ? "bg-fill" : "bg-fillLowContrast";
 
   return (
