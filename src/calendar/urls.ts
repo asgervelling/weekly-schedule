@@ -21,9 +21,12 @@ const parseJson = (json: O.Option<string>): E.Either<Error, Week> =>
     )
   );
 
+// Check example:
+// https://github.com/nodeca/pako/blob/master/examples/server.js
 const compress = (s: string): Uint8Array => pako.deflate(JSON.stringify(s));
 
-const decompress = (c: Uint8Array): string => pako.inflate(c, { to: "string" });
+const decompress = (c: Uint8Array): string =>
+  pako.inflate(c, { to: "string" }).toString();
 
 /**
  * Get the week parameter from the query string.
