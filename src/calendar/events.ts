@@ -15,26 +15,9 @@ import {
 import { emptyEventLength } from "./settings";
 
 /**
- * An empty event in the calendar, which a user may overwrite
- * with a non-empty one.
+ * The preferred way to create an event. Example:
+ * createEvent("Meeting", "09:00", "10:00")
  */
-export const emptyEvent = (
-  start: string,
-  end: string
-): ScheduleEvent => {
-  return createEvent("", start, end);
-};
-
-/**
- * An empty event at the specified time.
- */
-export const emptyEventAt = (
-  start: TimeStamp,
-  end: TimeStamp
-): ScheduleEvent => {
-  return createEvent("", formatTs(start), formatTs(end));
-};
-
 export const createEvent = (
   title: string,
   start: string,
@@ -50,6 +33,19 @@ export const createEvent = (
     start: p(start),
     end: endTime,
   };
+};
+
+/**
+ * An empty event in the calendar, which a user may overwrite
+ * with a non-empty one.
+ */
+export const emptyEvent = (
+  start: string | TimeStamp,
+  end: string | TimeStamp
+): ScheduleEvent => {
+  const f = (x: string | TimeStamp): string =>
+    typeof x === "string" ? x : formatTs(x);
+  return createEvent("", f(start), f(end));
 };
 
 /**
@@ -75,15 +71,6 @@ export const emptyWeek = (): Week => {
 
 export const isEmptyEvent = (e: ScheduleEvent) => {
   return e.title === "";
-};
-
-export const randomNoteColor = (): string => {
-  const colors = [];
-  for (let i = 1; i <= 4; i++) {
-    colors.push(`--color-note-${i}`);
-  }
-  const randomIndex = Math.floor(Math.random() * colors.length);
-  return `var(${colors[randomIndex]})`;
 };
 
 /**
@@ -170,7 +157,7 @@ export const padEvents = (events: Day): Day => {
       );
     }
     const t1 = addTimestamps(start, delta);
-    paddedEvents.push(emptyEventAt(start, t1));
+    paddedEvents.push(emptyEvent(start, t1));
     addEmptyEvents(t1, end);
   };
 

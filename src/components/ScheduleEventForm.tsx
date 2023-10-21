@@ -1,8 +1,7 @@
 import { ScheduleEvent } from "../../types";
-import { maxTs, minTs, parseTs } from "@/calendar/timestamps";
 import React, { useState } from "react";
 import Button from "./Button";
-import { createEvent, randomNoteColor } from "@/calendar/events";
+import { createEvent } from "@/calendar/events";
 import { DayOfWeek, getEnumKeys } from "@/app/enums";
 
 type ScheduleEventFormProps = {
@@ -26,51 +25,57 @@ const ScheduleEventForm = ({ onSubmit }: ScheduleEventFormProps) => {
   };
 
   return (
-    <div className="bg-fill p-4 rounded">
+    <div className="bg-fill ps-10 rounded">
+      <InputTextField title="Title" data={title} setData={setTitle} />
+      <InputTextField title="Start" data={start} setData={setStart} />
+      <InputTextField title="End" data={end} setData={setEnd} />
       <label className="block">
-        Title:
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+        Day:
+        <br />
+        <select
+          value={dayOfWeek}
+          onChange={(e) => {
+            setDayOfWeek(parseInt(printRet(e.target.value)));
+          }}
           className="border rounded px-2 py-1"
-        />
+        >
+          {getEnumKeys(DayOfWeek).map((key, index) => (
+            <option key={index} value={DayOfWeek[key]}>
+              {key}
+            </option>
+          ))}
+        </select>
       </label>
-      <label className="block">
-        Start:
-        <input
-          type="text"
-          value={start}
-          onChange={(e) => setStart(e.target.value)}
-          className="border rounded px-2 py-1"
-        />
-      </label>
-      <label className="block">
-        End:
-        <input
-          type="text"
-          value={end}
-          onChange={(e) => setEnd(e.target.value)}
-          className="border rounded px-2 py-1"
-        />
-      </label>
-      <select
-        value={dayOfWeek}
-        onChange={(e) => {
-          setDayOfWeek(parseInt(printRet(e.target.value)));
-        }}
-      >
-        {getEnumKeys(DayOfWeek).map((key, index) => (
-          <option key={index} value={DayOfWeek[key]}>
-            {key}
-          </option>
-        ))}
-      </select>
       <br />
       <div className="flex flex-row-reverse">
         <Button onClick={handleSubmit}>Submit</Button>
       </div>
     </div>
+  );
+};
+
+type InputField<A> = {
+  title: string;
+  data: A;
+  setData: (data: A) => void;
+};
+
+// This doesn't work, syntax error
+const InputTextField = ({
+  title,
+  data,
+  setData,
+}: InputField<string>) => {
+  return (
+    <label className="block">
+      {title}:
+      <input
+        type="text"
+        value={data}
+        onChange={(e) => setData(e.target.value)}
+        className="w-full border rounded px-2 py-1"
+      />
+    </label>
   );
 };
 

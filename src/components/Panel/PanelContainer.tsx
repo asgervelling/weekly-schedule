@@ -2,7 +2,7 @@ import React from "react";
 import { PanelProps } from "./Panel";
 import { panelHeight } from "@/calendar/panels";
 import { tsToMinutes } from "@/calendar/timestamps";
-import { emptyEventLength } from "@/settings";
+import { emptyEventLength } from "@/calendar/settings";
 
 type PanelContainerProps = PanelProps & {
   children?: React.ReactNode;
