@@ -12,21 +12,34 @@ import { emptyWeek } from "./events";
  * @param s A string that may or may not be JSON.
  * @returns Either an error or the parsed JSON.
  */
-const parseJson = (json: O.Option<string>): E.Either<Error, Week> =>
-  pipe(
-    json,
-    O.fold(
-      () => E.right(emptyWeek()), // If the option is None
-      (jsonStr) => E.tryCatch(() => JSON.parse(jsonStr), E.toError)
-    )
-  );
+const parseJson = (json: string): E.Either<Error, Week> =>
+  E.tryCatch(() => JSON.parse(json), E.toError);
 
 // Check example:
 // https://github.com/nodeca/pako/blob/master/examples/server.js
-const compress = (s: string): Uint8Array => pako.deflate(JSON.stringify(s));
+// const compress = (s: string): Uint8Array => pako.deflate(s);
+const compress = (s: string): string => {
+  // This function runs on the client
+  const compressed = pako.gzip(s);
+  const b64Encoded = Buffer.from(compressed).toString("base64");
+  return b64Encoded;
+};
 
-const decompress = (c: Uint8Array): string =>
-  pako.inflate(c, { to: "string" }).toString();
+// const decompress = (c: Uint8Array): string =>
+//   pako.inflate(c, { to: "string" }).toString();
+
+const decompress = (s: string): string => {
+  // This function runs on the server
+  // https://stackoverflow.com/a/69179527/12819647
+  const b64Encoded = Buffer.from(s, "base64");
+  const decompressed = pako.ungzip(b64Encoded);
+  const utf8Decoded = new TextDecoder().decode(decompressed);
+  return utf8Decoded;
+
+  // const utf8Encoder = new TextEncoder();
+  // const c = utf8Encoder.encode(s);
+  // return pako.ungzip(c, { to: "string" });
+};
 
 /**
  * Get the week parameter from the query string.
@@ -44,6 +57,10 @@ const getWeekJson = (searchParams: {
     O.chain(O.fromPredicate((s) => s !== ""))
   );
 
+/**
+ * Get everything after ?week= in the URL,
+ * or none if it is empty.
+ */
 const getWeekParam = (searchParams: {
   week: string | undefined;
 }): O.Option<string> =>
@@ -53,9 +70,17 @@ const getWeekParam = (searchParams: {
     O.chain(O.fromPredicate((s) => s !== ""))
   );
 
-const p = (x: any, msg: string) => {
-  console.log(msg, x);
+const urlDecode = (s: string): E.Either<Error, string> => {
+  console.log("before urlDecode", s);
+  const x = E.tryCatch(() => pr(decodeURIComponent(s), "s"), E.toError);
+  console.log("after urlDecode", x);
   return x;
+};
+
+/** Take a type A (general), print it and return it */
+const pr = <A>(a: A, name: string): A => {
+  console.log(name, a);
+  return a;
 };
 
 /**
@@ -66,16 +91,67 @@ const p = (x: any, msg: string) => {
  */
 export const deserialize = (searchParams: { week: string | undefined }): Week =>
   pipe(
-    p(searchParams, "searchParams"),
-    // getWeekParam
-    // decodeUriComponent
-    p(getWeekJson, "getWeekJson"),
-    p(parseJson, "parseJson"),
-    E.getOrElse((error) => {
-      console.error(`Error parsing week: ${error}`);
-      return emptyWeek();
-    })
+    pr(searchParams, "searchParams"),
+    getWeekParam,
+    (opt) => pr(opt, "getWeekParam()"),
+    O.match(emptyWeek, (p) =>
+      pipe(
+        pr(p, "p"),
+        urlDecode,
+        E.getOrElse((error) => {
+          console.error(`Error decoding URL: ${error}`);
+          return "";
+        }),
+        parseJson,
+        E.getOrElse((error) => {
+          console.error(`Error parsing week: ${error}`);
+          return emptyWeek();
+        })
+      )
+    )
   );
+
+export const deserialize1 = (searchParams: {
+  week: string | undefined;
+}): Week => {
+  console.log("deserialize1");
+  const weekJsonOpt = getWeekJson(searchParams);
+  console.log("weekJsonOpt", weekJsonOpt);
+  if (O.isNone(weekJsonOpt)) {
+    console.log("weekJsonOpt is none");
+    return emptyWeek();
+  }
+  const weekJson = weekJsonOpt.value;
+  console.log("weekJson", weekJson);
+  // No need to decode
+  const decompressed = decompress(weekJson.toString());
+  const weekJsonParsed = JSON.parse(decompressed);
+  console.log("weekJsonParsed", weekJsonParsed);
+  return weekJsonParsed;
+};
+
+// Old deserialize:
+// pipe(
+//   p(searchParams, "searchParams"),
+//   // getWeekParam
+//   // decodeUriComponent
+//   p(getWeekJson, "getWeekJson"),
+//   p(parseJson, "parseJson"),
+//   E.getOrElse((error) => {
+//     console.error(`Error parsing week: ${error}`);
+//     return emptyWeek();
+//   })
+
+export const serialize1 = (week: Week): string => {
+  console.log("serialize1");
+  const weekJson = JSON.stringify(week);
+  console.log("weekJson", weekJson);
+  const compressed = compress(weekJson);
+  console.log("compressed", compressed);
+  const compressedStr = compressed.toString();
+  console.log("compressedStr", compressedStr);
+  return compressedStr;
+};
 
 /**
  * Create a string from the state of the application
@@ -83,21 +159,9 @@ export const deserialize = (searchParams: { week: string | undefined }): Week =>
 export const serialize = (week: Week): string => JSON.stringify(week);
 
 export const playWithCompression = (week: Week): void => {
-  //
-  const compressed = compress(serialize(week));
-  const decompressed = parseJson(O.some(decompress(compressed)));
-
-  // Deserialize manually
-  const testParams =
-    "%5B%5B%7B%22title%22%3A%22New%20title%22%2C%22color%22%3A%22var%28--color-note-2%29%22%2C%22start%22%3A%7B%22h%22%3A0%2C%22m%22%3A0%7D%2C%22end%22%3A%7B%22h%22%3A0%2C%22m%22%3A30%7D%7D%5D%2C%5B%5D%2C%5B%5D%2C%5B%5D%2C%5B%5D%2C%5B%5D%2C%5B%5D%5D";
-  console.log("DESERIALIZE");
-
-  const urlDecoded = decodeURIComponent(testParams);
-  const weekJsonOpt = getWeekJson({ week: urlDecoded });
-
-  console.log(urlDecoded);
-  console.log(weekJsonOpt);
-
-  // deserialize({ week: testParams });
-  // console.log({ compressed, decompressed });
+  const original = window.location.href;
+  const compressed = compress(original);
+  const decompressed = decompress(compressed);
+  const urlDecoded = decodeURIComponent(decompressed);
+  console.log({ original, compressed, decompressed, urlDecoded });
 };
