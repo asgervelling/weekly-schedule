@@ -11,13 +11,7 @@ import { ScheduleEvent, Week } from "../../types";
 import WeeklySchedule from "@/components/WeeklySchedule";
 import ScheduleEventForm from "@/components/ScheduleEventForm";
 import { DayOfWeek } from "./enums";
-import {
-  serialize,
-  deserialize,
-  playWithCompression,
-  deserialize1,
-  serialize1,
-} from "@/calendar/urls";
+import { serialize, deserialize, createUrlFromState } from "@/calendar/urls";
 
 type HomeProps = {
   searchParams: {
@@ -26,7 +20,7 @@ type HomeProps = {
 };
 
 const Home = ({ searchParams }: HomeProps) => {
-  const [week, setWeek] = useState<Week>(deserialize1(searchParams));
+  const [week, setWeek] = useState<Week>(deserialize(searchParams));
 
   /**
    * Add an event to the week
@@ -50,14 +44,11 @@ const Home = ({ searchParams }: HomeProps) => {
   };
 
   /**
-   * Get a URL with the current week as parameters.
+   * Get a URL with the current week as a parameter.
    * Copy it to the clipboard
    */
-  const share = () => {
-    // playWithCompression(week);
-    const url = new URL(window.location.href);
-    url.searchParams.set("week", serialize1(week));
-    navigator.clipboard.writeText(url.toString());
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(createUrlFromState(week));
   };
 
   return (
@@ -70,7 +61,7 @@ const Home = ({ searchParams }: HomeProps) => {
           <WeeklySchedule week={week} onPanelClick={onPanelClick} />
         </div>
         <div className="flex flex-col items-start justify-end w-1/5">
-          <Button onClick={share}>Copy Link</Button>
+          <Button onClick={copyToClipboard}>Copy Link</Button>
         </div>
       </div>
     </>
