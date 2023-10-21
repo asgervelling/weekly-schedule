@@ -33,7 +33,7 @@ const ScheduleEventForm = ({ onSubmit }: ScheduleEventFormProps) => {
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="border border-gray-300 rounded px-2 py-1"
+          className="border rounded px-2 py-1"
         />
       </label>
       <label className="block">
@@ -42,7 +42,7 @@ const ScheduleEventForm = ({ onSubmit }: ScheduleEventFormProps) => {
           type="text"
           value={start}
           onChange={(e) => setStart(e.target.value)}
-          className="border border-gray-300 rounded px-2 py-1"
+          className="border rounded px-2 py-1"
         />
       </label>
       <label className="block">
@@ -51,7 +51,7 @@ const ScheduleEventForm = ({ onSubmit }: ScheduleEventFormProps) => {
           type="text"
           value={end}
           onChange={(e) => setEnd(e.target.value)}
-          className="border border-gray-300 rounded px-2 py-1"
+          className="border rounded px-2 py-1"
         />
       </label>
       <select

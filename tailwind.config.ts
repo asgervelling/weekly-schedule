@@ -1,5 +1,4 @@
-import type { Config } from "tailwindcss"
-
+import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
@@ -29,9 +28,18 @@ const config: Config = {
         stroke: "var(--color-stroke)",
         strokeLowContrast: "var(--color-stroke-low-contrast)",
       },
+      borderRadius: {
+        DEFAULT: "var(--border-radius)",
+      },
+      borderWidth: {
+        DEFAULT: "var(--border-width)",
+      },
+      borderColor: {
+        DEFAULT: "var(--border-color)",
+      },
     },
   },
   plugins: [],
 };
 
-export default config
+export default config;

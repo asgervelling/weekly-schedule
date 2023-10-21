@@ -9,7 +9,14 @@ height: 100%;
 
 @layer base {
     :root {
-        --color-fill: #fff;
+        --color-fill: #FBFCE7;
+        --color-fill-secondary: #ECDCC2;
+        --color-stroke: #59594A;
+
+        --border-width: 2px;
+        --border-radius: 12px;
+        --border-color: var(--color-stroke);
+
         --color-fill-low-contrast: #fcf5c7;
         --color-fill-high-contrast: #adf7b6;
         --color-stroke-low-contrast: #c8e6c9;
@@ -17,7 +24,7 @@ height: 100%;
         --color-note-2: #a4b8b9;
         --color-note-3: #7f998e;
         --color-note-4: #efab8d;
-        --color-stroke: #2c2c2c;
+        /* --color-stroke: #2c2c2c; */
         --color-text-inverted: #fdf5e6;
         --color-text-primary: var(--color-stroke);
         --color-text-muted: #4e4e4e;

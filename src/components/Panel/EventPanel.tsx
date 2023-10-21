@@ -8,14 +8,17 @@ import { formatTs } from "@/calendar/timestamps";
  */
 const EventPanel = ({ event, parentHeight, onClick }: PanelProps) => {
   return (
-    <PanelContainer event={event} parentHeight={parentHeight} onClick={onClick}>
-      <p
-        style={{ backgroundColor: event.color }}
-        className="h-full p-1 text-xs text-primary"
-      >
-        <span className="text-muted">{formatTs(event.start)}</span>{" "}
-        {event.title}
-      </p>
+    <PanelContainer
+      event={event}
+      parentHeight={parentHeight}
+      onClick={onClick}
+    >
+      <div className="border h-full max-w-full box-border rounded">
+        <p className="h-full w-full p-1 text-primary">
+          <span className="text-muted">{formatTs(event.start)}</span>{" "}
+          {event.title}
+        </p>
+      </div>
     </PanelContainer>
   );
 };

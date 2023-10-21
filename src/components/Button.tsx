@@ -6,7 +6,7 @@ type ButtonProps = {
 const Button = ({ children, onClick }: ButtonProps) => {
   return (
     <button
-      className="border border-stroke py-4 px-14 rounded text-primary"
+      className="border border-stroke py-4 px-14 rounded"
       onClick={onClick}
     >
       {children}

@@ -20,12 +20,11 @@ const PanelContainer: React.FC<PanelContainerProps> = ({
 
   const isEven =
     Math.floor(tsToMinutes(event.start) / emptyEventLength) % 2 === 0;
-  const backgroundColor = isEven ? "bg-fill" : "bg-fillLowContrast";
 
   return (
     <div
       style={gridStyle}
-      className={`lg:text-base text-md ${backgroundColor}`}
+      className={`text-sm bg-fill overflow-hidden`}
       onClick={() => onClick(event)}
     >
       {children}

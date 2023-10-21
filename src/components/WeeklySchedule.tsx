@@ -13,9 +13,12 @@ type WeeklyScheduleProps = {
  *
  * @param week - Seven lists of events.
  */
-const WeeklySchedule = ({ week, onPanelClick }: WeeklyScheduleProps) => {
+const WeeklySchedule = ({
+  week,
+  onPanelClick,
+}: WeeklyScheduleProps) => {
   return (
-    <div className="flex w-full h-full overflow-y-auto border border-black rounded">
+    <div className="flex w-full h-full overflow-y-auto border rounded">
       {week !== null ? (
         week?.map((day, i) => (
           <DailySchedule

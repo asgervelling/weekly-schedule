@@ -12,7 +12,7 @@ import {
   tsEq,
   formatTs,
 } from "./timestamps";
-import { emptyEventLength } from "@/settings";
+import { emptyEventLength } from "./settings";
 
 /**
  * An empty event in the calendar, which a user may overwrite
@@ -22,10 +22,7 @@ export const emptyEvent = (
   start: string,
   end: string
 ): ScheduleEvent => {
-  return {
-    ...createEvent("", start, end),
-    color: "",
-  };
+  return createEvent("", start, end);
 };
 
 /**
@@ -50,7 +47,6 @@ export const createEvent = (
   }
   return {
     title,
-    color: randomNoteColor(),
     start: p(start),
     end: endTime,
   };

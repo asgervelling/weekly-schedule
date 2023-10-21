@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import Button from "@/components/Button";
 import {
-  emptyWeek,
   insertDay,
   insertEvent,
   randomNoteColor,
@@ -40,7 +39,6 @@ const Home = ({ searchParams }: HomeProps) => {
     const event: ScheduleEvent = {
       ...e,
       title: "New title",
-      color: randomNoteColor(),
     };
     addEvent(event, d);
   };
