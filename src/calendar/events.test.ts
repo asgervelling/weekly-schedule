@@ -1,4 +1,4 @@
-import { Day, ScheduleEvent, Week } from "../../types";
+import { Day, ScheduleEvent, Week } from "../types";
 import {
   createEvent,
   eventEquals,

@@ -3,7 +3,7 @@ import * as E from "fp-ts/Either";
 import pako from "pako";
 
 import { pipe } from "fp-ts/function";
-import { Week } from "../../types";
+import { Week } from "../types";
 import { emptyWeek } from "./events";
 
 /**

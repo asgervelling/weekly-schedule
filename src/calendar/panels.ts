@@ -1,4 +1,4 @@
-import { ScheduleEvent } from "../../types";
+import { ScheduleEvent } from "../types";
 import { tsToMinutes } from "./timestamps";
 
 /**

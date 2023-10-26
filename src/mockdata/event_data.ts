@@ -1,5 +1,5 @@
 import { addTimestamps, parseTs } from "@/calendar/timestamps";
-import { Day, ScheduleEvent, TimeStamp } from "../../types";
+import { Day, ScheduleEvent, TimeStamp } from "../types";
 
 export const randomWeek = () => {
   return Array.from({ length: 7 }, () => randomDay());

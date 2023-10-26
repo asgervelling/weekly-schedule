@@ -1,4 +1,4 @@
-import { ScheduleEvent } from "../../types";
+import { ScheduleEvent } from "../types";
 import { panelHeight, panelTop } from "./panels";
 
 const e0: ScheduleEvent = {

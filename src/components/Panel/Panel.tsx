@@ -2,7 +2,7 @@ import React from "react";
 import * as O from "fp-ts/Option";
 import { pipe } from "fp-ts/function";
 
-import { ScheduleEvent } from "../../../types";
+import { ScheduleEvent } from "../../types";
 import { isEmptyEvent } from "@/calendar/events";
 import EventPanel from "./EventPanel";
 import EmptyPanel from "./EmptyPanel";

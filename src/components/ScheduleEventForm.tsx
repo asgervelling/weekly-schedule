@@ -1,4 +1,4 @@
-import { ScheduleEvent } from "../../types";
+import { ScheduleEvent } from "../types";
 import React, { useState } from "react";
 import Button from "./Button";
 import { createEvent } from "@/calendar/events";

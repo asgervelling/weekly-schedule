@@ -1,5 +1,5 @@
 import { DayOfWeek } from "@/app/enums";
-import { Day, ScheduleEvent, TimeStamp, Week } from "../../types";
+import { Day, ScheduleEvent, TimeStamp, Week } from "../types";
 import {
   minutesToTs,
   tsToMinutes,

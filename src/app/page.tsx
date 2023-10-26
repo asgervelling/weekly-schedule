@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Button from "@/components/Button";
 import { insertDay, insertEvent } from "@/calendar/events";
-import { ScheduleEvent, Week } from "../../types";
+import { ScheduleEvent, Week } from "../types";
 import WeeklySchedule from "@/components/WeeklySchedule";
 import ScheduleEventForm from "@/components/ScheduleEventForm";
 import { DayOfWeek } from "./enums";

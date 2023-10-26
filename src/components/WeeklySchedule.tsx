@@ -1,6 +1,6 @@
 import React, { SyntheticEvent } from "react";
 import DailySchedule from "./DailySchedule";
-import { ScheduleEvent, Week } from "../../types";
+import { ScheduleEvent, Week } from "../types";
 import { DayOfWeek } from "@/app/enums";
 
 type WeeklyScheduleProps = {

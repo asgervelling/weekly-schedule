@@ -1,3 +1,1 @@
-import { Day } from "../../types";
-
-
+import { Day } from "../types";

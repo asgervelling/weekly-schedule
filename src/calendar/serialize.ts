@@ -1,5 +1,5 @@
 import pako from "pako";
-import { Week } from "../../types";
+import { Week } from "../types";
 
 /**
  * Serialize and compress the state of the application
