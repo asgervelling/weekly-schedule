@@ -15,7 +15,9 @@ const EventPanel = ({ event, parentHeight, onClick }: PanelProps) => {
     >
       <div className="border h-full max-w-full box-border rounded">
         <p className="h-full w-full p-1 text-primary">
-          <span className="text-muted">{formatTs(event.start)}</span>{" "}
+          <span className="text-muted overflow-hidden text-ellipsis">
+            {formatTs(event.start)}
+          </span>{" "}
           {event.title}
         </p>
       </div>

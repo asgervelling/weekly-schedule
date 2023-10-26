@@ -24,7 +24,7 @@ const PanelContainer: React.FC<PanelContainerProps> = ({
   return (
     <div
       style={gridStyle}
-      className={`text-sm overflow-hidden`}
+      className={`text-sm w-30 break-all overflow-hidden`}
       onClick={() => onClick(event)}
     >
       {children}
