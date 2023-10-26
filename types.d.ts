@@ -9,5 +9,5 @@ export type ScheduleEvent = {
   end: TimeStamp;
 };
 
-export type Day = CalendarEvent[];
+export type Day = ScheduleEvent[];
 export type Week = Day[];

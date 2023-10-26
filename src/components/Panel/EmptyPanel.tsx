@@ -13,7 +13,7 @@ const EmptyPanel = ({ event, parentHeight, onClick }: PanelProps) => {
       parentHeight={parentHeight}
       onClick={onClick}
     >
-      <div className="h-full border-t-[1px] border-s-[1px]"></div>
+      <div className="h-full"></div>
     </PanelContainer>
   );
 };

@@ -10,13 +10,14 @@ import { emptyWeek } from "./events";
  * Serialize and compress the state of the application
  * to a URL that can be shared with others.
  */
-export const exportState = (week: Week): string => {
+export const serialize = (week: Week): string => {
   const url = new URL(window.location.href);
   url.searchParams.set("week", serialize(week));
   return url.toString();
 };
 
 /**
+ * Previously called deserialize.
  * Decompress and deserialize the state of the application
  * from the URL's searchParams.
  *
@@ -25,15 +26,17 @@ export const exportState = (week: Week): string => {
  * @returns A Week object on success,
  *          or an empty Week object on failure.
  */
-export const importState = (searchParams: {
-  week: string | undefined;
-}): Week =>
+export const urlToState = (urlParams: string): Week =>
   pipe(
-    searchParams,
-    getWeekParam,
-    O.match(
-      () => emptyWeek(),
-      (week) => parseWeek(week)
+    urlParams,
+    decompress,
+    E.chain(parseJson),
+    E.match(
+      (error) => {
+        console.log(error.message);
+        return emptyWeek();
+      },
+      (week) => week
     )
   );
 

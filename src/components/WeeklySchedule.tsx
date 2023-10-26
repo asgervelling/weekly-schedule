@@ -18,7 +18,7 @@ const WeeklySchedule = ({
   onPanelClick,
 }: WeeklyScheduleProps) => {
   return (
-    <div className="flex w-full h-full overflow-y-auto border rounded">
+    <div className="flex w-full h-full overflow-y-auto border rounded even:bg-red-200 odd:bg-green-200">
       {week !== null ? (
         week?.map((day, i) => (
           <DailySchedule
@@ -29,9 +29,7 @@ const WeeklySchedule = ({
           />
         ))
       ) : (
-        <div className="flex items-center justify-center w-full h-full">
-          Loading...
-        </div>
+        <div className="flex w-full h-full">Loading...</div>
       )}
     </div>
   );

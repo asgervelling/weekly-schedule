@@ -21,7 +21,7 @@ const DailySchedule = ({
   const h = 960;
 
   return (
-    <div className="flex-grow">
+    <div className="flex-grow first-letter:odd:bg-fill even:bg-fillSecondary">
       {padEvents(events).map((e, i) => (
         <Panel
           key={i}
